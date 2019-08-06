@@ -1,0 +1,307 @@
+if !has('nvim')
+  source $VIMRUNTIME/defaults.vim
+  let g:skip_defaults_vim = 1                                    " Do not source defaults.vim again (after loading this system vimrc)
+endif
+
+set backup                                                     " keep a backup file (restore to previous version)
+if has('persistent_undo')| set undofile | endif                " keep an undo file (undo changes after closing)
+if &t_Co > 2 || has('gui_running') | set hlsearch | endif      " Switch on highlighting the last used search pattern
+
+" let $PYTHONPATH = "f:/python37_x86/Lib;f:/python37_x86/DLLs" 
+let g:python3_host_prog='F:/python37_x86/python'
+let g:python_host_prog='c:/python27/python.exe'
+let g:neovim_ruby_host='c:/msys2/mingw64/bin/neovim-ruby-host.bat'
+let Tlist_Ctags_Cmd = 'f:/gnuWin32/bin/ctags.exe'              " ctags for Taglist
+set helplang=en                                                " help lang as english
+set langmenu=en_US.UTF-8                                       " sets the language of the menu (gvim)
+set encoding=UTF-8
+set laststatus=2                                               " make the status two lines deep so you can see status always
+set tabstop=4
+set nowrap
+set wildmode=longest,list,full | set wildmenu                  " bash/readline -alike tab-completion
+set cursorline                                "highlight current line
+set relativenumber | set number
+set ignorecase
+set smartcase
+
+" now use vim-airline 
+" if 0
+" set statusline=%F               " full filename 
+" set statusline+=%h              " help file flag
+" set statusline+=%m              " modified flag
+" set statusline+=%r              " readonly flag
+" set statusline+=\ [CRLF:%{&ff}] " Fileformat [unix]/[dos] etc...
+" set statusline+=\ modified_at(%{strftime(\'%H:%M\ %Y-%m-%d\',getftime(expand(\'%:p\')))})  " last modified timestamp
+" set statusline+=%=              " Rest: right align
+" set statusline+=%l,%c%V         " Position in buffer: linenumber, column, virtual column
+" set statusline+=\ %P            " Position in buffer: Percentage
+" endif
+
+" ----------------- "screen size and color scheme
+if has('gui_running') "gvim
+  if system('wmic path Win32_VideoController get CurrentHorizontalResolution |findstr -V Cur')>1440
+	set lines=36 columns=144 | set guifont =Fira_Code_Retina:h16:cANSI:qDRAFT | colorscheme m2 " Bigger gvim window
+  else
+	set lines=36 columns=144 | set guifont =Fira_Code_Retina:h12:cANSI:qDRAFT | colorscheme m2 " smaller gvim window
+  endif
+
+  set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                               " looks good on win10
+elseif has('vcon') "win10, vim-console
+  et termguicolors| set background=dark| colorscheme southernlights
+endif " nvim-qt font setting is inside ginit.vim
+" -----------------  "tab=2 for Vim scripts
+if has("autocmd")  
+  augroup MyVimSettings| au! | autocmd Filetype vim setlocal ts=2 sts=2 sw=2	
+  augroup END
+endif 
+" ----------------- "auto indent for lisp/scheme
+if has("autocmd")
+  augroup MyLispSettings
+	" take *.alt as Scheme scripts
+	au! | au BufReadPost *.rkt,*.rktl,*.alt,*.scm set filetype=scheme "racket
+	" lisp/scheme indent
+	autocmd filetype lisp,scheme setlocal equalprg=scmindent.cmd
+	" autocmd Filetype scheme setlocal tabstop=2
+	autocmd Filetype vim setlocal ts=2 sts=2 sw=2
+  augroup END
+endif 
+" ----------------- "auto indent for perl with perltidy
+" if has("autocmd")
+"   augroup MyPerlSettings
+" 	au!
+" 	autocmd filetype perl setlocal equalprg='C:/Users/baic/Downloads/apps/StrawberryPerl/perl/bin/perltidy.bat'
+"   augroup END
+" endif 
+"""""""""""""""""""" command to copy current file/path/directory. for example: ",ef" to copy absolute path.
+
+let mapleader = ","
+"alt-space to close vim
+nnoremap <M-Space> :simalt ~<CR> 
+nnoremap ; :
+nnoremap ' "
+" alt-F8 to format whole file
+nnoremap <M-F8> gg=G<C-O><C-O> 
+" alt-left/right to navigate
+nnoremap <M-Left> <C-O>
+nnoremap <M-RIGHT> <C-I>
+" F9 to source current file
+nnoremap <F9> :w<CR>:so %<CR>
+inoremap <F9> <ESC>:w<CR>:so %<CR>
+" ctrl-tab for switching buffer/window
+nnoremap <C-Tab> :bn<CR>
+" ctrl-s to save file
+nnoremap <C-S> :w<CR>
+"ctrl-q to toggle comment current line,  see commentary.txt
+nnoremap <C-Q> :Commentary<CR>
+" ctrl-j join lines withouth space, shift-j join lines with space inserted
+nnoremap <C-J> gJ
+" show all vim registers
+nmap <leader>, :reg<CR>
+nmap <leader>re :execute "edit " . $MYVIMRC<CR>
+" ,m to maximize window
+nmap <leader>m :resize<CR> 
+nmap <leader>wm :resize<CR> 
+" auto highlight words under cursor, when idle
+nmap <leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+if has('win32')
+  " relative path  (src/foo.txt) 
+  nmap <leader>et :let @*=expand("%")<CR> 
+  " absolute path  (/something/src/foo.txt) 
+  nmap <leader>ef :let @*=expand("%:p")<CR> 
+  " filename       (foo.txt) 
+  nmap <leader>ee :let @*=expand("%:t")<CR>
+  " directory name (/something/src)
+  nmap <leader>ed :let @*=expand("%:p:h")<CR>
+endif
+"mru, list recent files
+cnoreabbrev <expr> mr 'browse old'
+cnoreabbrev <expr> mru 'browse old'
+" Map F10 to display the syntax highlighting group of the current word
+nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+nmap <leader>hh :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' 
+	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" 
+	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" 
+	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+" -----------------
+"my settings
+" set cmdheight=2
+" set clipboard=unnamed "use the system clipboard
+" -----------------
+"commandline key-mapping
+"note. now use https://github.com/tpope/vim-rsi
+" -----------------
+" clang-format
+" map <C-I> :py3f C:/msys64/mingw64/share/clang/clang-format.py<cr>
+" imap <C-I> <c-o>:py3f C:/msys64/mingw64/share/clang/clang-format.py<cr>
+
+" You can also pass in the variable "l:lines" to choose the range for
+" formatting. This variable can either contain "<start line>:<end line>" or
+" "all" to format the full file. So, to format the full file, write a function
+" like:
+" nmap <M-F8> :call FormatFile()<CR>
+" function! FormatFile()
+"   let l:lines="all"
+"   " pyf <path-to-this-file>/clang-format.py
+" py3f C:/msys64/mingw64/share/clang/clang-format.py
+" endfunction
+
+" ----------------- "take *.hpp file as c++, not c
+if has("autocmd")
+  augroup MyHppSettings
+	au! |  au BufNewFile, BufReadPost *.hpp *.cpp set filetype=cpp
+	autocmd Filetype cpp setlocal tabstop=4
+  augroup END
+endif 
+
+" ----------------- "take *.dom file as smalltalk
+if has("autocmd")
+  augroup MyDomeSettings
+	au!
+	au BufNewFile, BufReadPost *.dom set filetype=potion
+	autocmd Filetype st setlocal tabstop=4
+  augroup END
+endif 
+
+
+" -----------------
+"limit oldfile history to 30
+set viminfo='10,<30,s10,h,rV:,rU:,rB:
+
+
+
+
+
+if has('autocmd') " For all text files set 'textwidth' to 120 characters.
+  augroup vimrcEx
+	au!
+	autocmd FileType text setlocal textwidth=120
+  augroup END
+else
+  set autoindent                               
+endif
+
+" ----------------- auto highlight words under cursor
+" autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+" ----------------- auto highlight words under cursor, when idle
+function! AutoHighlightToggle() " Type z/ to toggle highlighting on/off.
+  let @/ = ''
+  if exists('#auto_highlight')
+	au! auto_highlight
+	augroup! auto_highlight
+	setl updatetime=4000
+	echo 'Highlight current word: off'
+	return 0
+  else
+	augroup auto_highlight
+	  au!
+	  au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+	augroup end
+	setl updatetime=650
+	echo 'Highlight current word: ON'
+	return 1
+  endif
+endfunction
+" ----------------- "for ms-windows, arrow-keys don't leave visaul-mode
+if has('win32')
+  set keymodel-=stopsel
+endif
+" ----------------- "virtual block -- when in visual-block-mode, cursors can move beyond eof.
+set virtualedit=block
+
+if has('gui_running')
+  " ----------------- ease the alt-b buffer menu.
+  let no_buffers_menu = 1 
+  set guioptions -=T "no tool-bar in gui
+  " ----------------- make linespacing narrower 
+  set linespace=-1
+else
+  colo default
+  highlight LineNr ctermfg=darkgray ctermbg=black
+  highlight CursorLineNr ctermfg=gray ctermbg=black
+endif
+
+" ----------------- ""Plug
+call plug#begin('$HOME/vimfiles/plugged')
+" Make sure you use single quotes
+Plug 'mhinz/vim-startify' "start screen, with MRU
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'guns/vim-sexp',  { 'for': 'scheme' } "s-expression for lisp/scheme
+Plug 'tpope/vim-sexp-mappings-for-regular-people',  { 'for': 'scheme' }
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rsi'
+Plug 'dawikur/algorithm-mnemonics.vim' ", { 'on':  'Algorithm-mnemonics' }
+Plug 'godlygeek/tabular'
+Plug 'andymass/vim-matchup'
+Plug 'vim-airline/vim-airline'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'flazz/vim-colorschemes'
+
+Plug '0017031/vim-system-copy'
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-colorscheme-switcher'
+Plug 'vim-jp/syntax-vim-ex'
+if has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
+  Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+endif
+"Plug 'wlangstroth/vim-racket'
+
+
+" Plug 'Valloric/YouCompleteMe'
+" let g:ycm_global_ycm_extra_conf = 'C:/Users/baic/Downloads/apps/gvim/settings/g_ycm_extra_conf.py'
+
+"Plug 'jaxbot/semantic-highlight.vim'
+"Plug 'jeaye/color_coded'
+
+" Plug 'bbchung/clighter8'
+" let g:clighter8_libclang_path='C:/Users/baic/Downloads/apps/gvim/settings/vimfiles/bundle/YouCompleteMe/third_party/ycmd/libclang.dll'
+" let g:clighter8_logfile='a:/ccc.log'
+call plug#end()
+let g:comfortable_motion_friction = 80.0
+let g:comfortable_motion_air_drag = 4.0
+" packadd syntax-vim-ex
+
+let nvim_qt = $NVIM_QT
+if nvim_qt
+  " echom "nvim-qt"
+  colo m2
+endif
+
+" let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
+
+" g/^s*$/d
+" :[range]g[lobal]/{pattern}/[cmd]
+" Execute the Ex command [cmd] (default ":p") on the
+" lines within [range] where {pattern} matches.
+
+" 'christoomey/vim-system-copy'
+let g:system_copy#paste_command='win32yank -o'
+let g:system_copy#copy_command='win32yank -i'
+nmap cc <Plug>SystemCopy
+xmap cc <Plug>SystemCopy
+nmap ccl <Plug>SystemCopyLine
+nmap pp <Plug>SystemPaste
+xmap pp <Plug>SystemPaste
+nmap ppl <Plug>SystemPasteLine
+
+" coc.vim
+" Map <tab> to trigger completion and navigate to the next item: 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+	  \ pumvisible() ? "\<C-n>" :
+	  \ <SID>check_back_space() ? "\<TAB>" :
+	  \ coc#refresh()
+" <CR> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+
+

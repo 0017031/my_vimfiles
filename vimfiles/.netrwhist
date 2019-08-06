@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='A:/temp/LargeFile.vba'
+let g:netrw_dirhist_2='W:/tools_baichun/log_cmp_easy/c_hash_cmp_log'
+let g:netrw_dirhist_3='w:/github-libs/range-v3/example'
+let g:netrw_dirhist_4='C:/Users/baic/Documents/jtemp'
+let g:netrw_dirhist_5='C:/Users/baic/Documents/jtemp/mpc'
+let g:netrw_dirhist_6='C:/Users/baic/Documents/jtemp'
