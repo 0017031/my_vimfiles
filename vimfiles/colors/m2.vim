@@ -25,7 +25,7 @@ hi vimCommentTitle term=standout  gui=bold guifg='#003181'
 hi vimCommentString term=standout  gui=bold guifg='#22a181'
 hi vimCommand gui=bold guifg=brown 
 hi vimHiGroup guifg='#0000cd'
-hi Identifier term=standout  term=NONE cterm=NONE gui=NONE guifg='#114981' 
+hi Identifier term=standout  term=NONE cterm=NONE gui=bold guifg='#1866b5' 
 hi Constant term=standout  guifg='#d11141' 
 
 hi Statement term=NONE cterm=NONE gui=NONE ctermfg=Blue guifg='#731d1d' 

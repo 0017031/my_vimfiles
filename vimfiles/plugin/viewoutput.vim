@@ -1,5 +1,5 @@
 " viewoutput.vim Version 2.0
-" Description: use ':VO myCmd' to view output of vim command in new buffer
+" Description: use ':OO myCmd' to view output of vim command in new buffer
 " Author: Yakov Lerner
 " Thanks to: Antony Scriven, Charles Campbell
 
@@ -32,7 +32,7 @@ function! ViewOutput(myCmd)
 	exec g:viewoutput_newbuffer
 	put a
 	1,2g/^$/d "remove the first 2 empty lines, c.f. :[range]g[lobal]/{pattern}/[cmd]
-	0 put = 'Command: ' . a:myCmd "put command name at the top
+	0 put = 'Command: ' . a:myCmd "display the command name at the top
 	setfiletype vim
 	set bufhidden=hide noswapfile noreadonly nomodified
 	" set buftype=nofile

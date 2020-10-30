@@ -1,86 +1,57 @@
-if !has('nvim')
-  source $VIMRUNTIME/defaults.vim
-  let g:skip_defaults_vim = 1                                    " Do not source defaults.vim again (after loading this system vimrc)
+
+if has('nvim') 
+  color m2 " nvim-qt font setting is inside ginit.vim
+else  "gvim
+  source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
+  if has('gui_running') 
+	set lines=36 columns=144 | set guifont =Jetbrains_Mono:h13:cANSI:qDRAFT | colorscheme m2 "screen size and color scheme
+	" set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                               " looks good on win10
+  elseif has('vcon') "win10, vim-console
+	set termguicolors| set background=dark| colorscheme southernlights
+  endif 
 endif
 
 set backup                                                     " keep a backup file (restore to previous version)
 if has('persistent_undo')| set undofile | endif                " keep an undo file (undo changes after closing)
 if &t_Co > 2 || has('gui_running') | set hlsearch | endif      " Switch on highlighting the last used search pattern
 
-" let $PYTHONPATH = "f:/python37_x86/Lib;f:/python37_x86/DLLs" 
-let g:python3_host_prog='F:/python37_x86/python'
-let g:python_host_prog='c:/python27/python.exe'
-let g:neovim_ruby_host='c:/msys2/mingw64/bin/neovim-ruby-host.bat'
+let g:python3_host_prog='C:/Python38-32/python.exe'
+let g:python_host_prog='C:/python27/python.exe'
+let g:perl_host_prog = 'f:/perl/bin/perl.exe'
 let Tlist_Ctags_Cmd = 'f:/gnuWin32/bin/ctags.exe'              " ctags for Taglist
-set helplang=en                                                " help lang as english
-set langmenu=en_US.UTF-8                                       " sets the language of the menu (gvim)
-set encoding=UTF-8
+
+set formatoptions-=ro                                          " Don't insert a " at the start of the new line.
+set helplang=en | set langmenu=en_US.UTF-8 |set encoding=UTF-8 " sets the language of the menu (gvim)
 set laststatus=2                                               " make the status two lines deep so you can see status always
-set tabstop=4
-set nowrap
 set wildmode=longest,list,full | set wildmenu                  " bash/readline -alike tab-completion
-set cursorline                                "highlight current line
-set relativenumber | set number
-set ignorecase
-set smartcase
+set cursorline										           " highlight current line
+set relativenumber | set number | set ignorecase | set smartcase | set tabstop=4 | set nowrap
 
-" now use vim-airline 
-" if 0
-" set statusline=%F               " full filename 
-" set statusline+=%h              " help file flag
-" set statusline+=%m              " modified flag
-" set statusline+=%r              " readonly flag
-" set statusline+=\ [CRLF:%{&ff}] " Fileformat [unix]/[dos] etc...
-" set statusline+=\ modified_at(%{strftime(\'%H:%M\ %Y-%m-%d\',getftime(expand(\'%:p\')))})  " last modified timestamp
-" set statusline+=%=              " Rest: right align
-" set statusline+=%l,%c%V         " Position in buffer: linenumber, column, virtual column
-" set statusline+=\ %P            " Position in buffer: Percentage
-" endif
+au FileType text setlocal textwidth=1200
+au Filetype vim         setlocal tabstop=2 sts=2 sw=2	
+au Filetype c,cpp,st    setlocal tabstop=4 sts=4 sw=4	
+au filetype lisp,scheme setlocal equalprg=scmindent.cmd
+au BufNewFile, BufReadPost *.rkt,*.rktl,*.alt,*.scm set filetype=scheme "racket
+au BufNewFile, BufReadPost *.dom set filetype=st
 
-" ----------------- "screen size and color scheme
-if has('gui_running') "gvim
-  if system('wmic path Win32_VideoController get CurrentHorizontalResolution |findstr -V Cur')>1440
-	set lines=36 columns=144 | set guifont =Fira_Code_Retina:h16:cANSI:qDRAFT | colorscheme m2 " Bigger gvim window
-  else
-	set lines=36 columns=144 | set guifont =Fira_Code_Retina:h12:cANSI:qDRAFT | colorscheme m2 " smaller gvim window
-  endif
-
-  set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                               " looks good on win10
-elseif has('vcon') "win10, vim-console
-  et termguicolors| set background=dark| colorscheme southernlights
-endif " nvim-qt font setting is inside ginit.vim
-" -----------------  "tab=2 for Vim scripts
-if has("autocmd")  
-  augroup MyVimSettings| au! | autocmd Filetype vim setlocal ts=2 sts=2 sw=2	
-  augroup END
-endif 
-" ----------------- "auto indent for lisp/scheme
-if has("autocmd")
-  augroup MyLispSettings
-	" take *.alt as Scheme scripts
-	au! | au BufReadPost *.rkt,*.rktl,*.alt,*.scm set filetype=scheme "racket
-	" lisp/scheme indent
-	autocmd filetype lisp,scheme setlocal equalprg=scmindent.cmd
-	" autocmd Filetype scheme setlocal tabstop=2
-	autocmd Filetype vim setlocal ts=2 sts=2 sw=2
-  augroup END
-endif 
-" ----------------- "auto indent for perl with perltidy
-" if has("autocmd")
-"   augroup MyPerlSettings
-" 	au!
-" 	autocmd filetype perl setlocal equalprg='C:/Users/baic/Downloads/apps/StrawberryPerl/perl/bin/perltidy.bat'
-"   augroup END
-" endif 
-"""""""""""""""""""" command to copy current file/path/directory. for example: ",ef" to copy absolute path.
-
-let mapleader = ","
+"shift-insert to past in edit mode
+inoremap <silent>  <S-Insert>  <C-R>+
 "alt-space to close vim
 nnoremap <M-Space> :simalt ~<CR> 
+"no need to shift+:
 nnoremap ; :
+"swap ' " in normal mode
 nnoremap ' "
+nnoremap " '
 " alt-F8 to format whole file
 nnoremap <M-F8> gg=G<C-O><C-O> 
+au FileType c,cpp,javascript,java,cs nnoremap  <buffer> <M-F8>   :call FormatFile()<CR>
+au FileType c,cpp,javascript,java,cs noremap   <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
+au FileType c,cpp,javascript,java,cs inoremap  <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
+function! FormatFile()
+  let l:lines="all" 
+  py3f f:/gnuWin32/bin/clang-format.py3
+endfunction
 " alt-left/right to navigate
 nnoremap <M-Left> <C-O>
 nnoremap <M-RIGHT> <C-I>
@@ -89,12 +60,15 @@ nnoremap <F9> :w<CR>:so %<CR>
 inoremap <F9> <ESC>:w<CR>:so %<CR>
 " ctrl-tab for switching buffer/window
 nnoremap <C-Tab> :bn<CR>
+nnoremap <C-F4>  :bd<CR>
 " ctrl-s to save file
 nnoremap <C-S> :w<CR>
 "ctrl-q to toggle comment current line,  see commentary.txt
 nnoremap <C-Q> :Commentary<CR>
 " ctrl-j join lines withouth space, shift-j join lines with space inserted
 nnoremap <C-J> gJ
+
+let mapleader = ","
 " show all vim registers
 nmap <leader>, :reg<CR>
 nmap <leader>re :execute "edit " . $MYVIMRC<CR>
@@ -103,19 +77,17 @@ nmap <leader>m :resize<CR>
 nmap <leader>wm :resize<CR> 
 " auto highlight words under cursor, when idle
 nmap <leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-if has('win32')
-  " relative path  (src/foo.txt) 
-  nmap <leader>et :let @*=expand("%")<CR> 
-  " absolute path  (/something/src/foo.txt) 
-  nmap <leader>ef :let @*=expand("%:p")<CR> 
-  " filename       (foo.txt) 
-  nmap <leader>ee :let @*=expand("%:t")<CR>
-  " directory name (/something/src)
-  nmap <leader>ed :let @*=expand("%:p:h")<CR>
-endif
+"----------------------------------------- copy current file/path/directory. for example: ",ef" to copy absolute path.
+" absolute path  (/something/src/foo.txt) 
+nmap <leader>ef :let @*=expand("%:p")<CR> 
+" filename       (foo.txt) 
+nmap <leader>ee :let @*=expand("%:t")<CR>
+" directory name (/something/src)
+nmap <leader>ed :let @*=expand("%:p:h")<CR>
+" relative path  (src/foo.txt) 
+nmap <leader>et :let @*=expand("%")<CR> 
 "mru, list recent files
 cnoreabbrev <expr> mr 'browse old'
-cnoreabbrev <expr> mru 'browse old'
 " Map F10 to display the syntax highlighting group of the current word
 nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -127,52 +99,14 @@ nmap <leader>hh :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '>
 	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 " -----------------
 "my settings
-" set cmdheight=2
-" set clipboard=unnamed "use the system clipboard
+set cmdheight=2
 " -----------------
 "commandline key-mapping
 "note. now use https://github.com/tpope/vim-rsi
-" -----------------
-" clang-format
-" map <C-I> :py3f C:/msys64/mingw64/share/clang/clang-format.py<cr>
-" imap <C-I> <c-o>:py3f C:/msys64/mingw64/share/clang/clang-format.py<cr>
-
-" You can also pass in the variable "l:lines" to choose the range for
-" formatting. This variable can either contain "<start line>:<end line>" or
-" "all" to format the full file. So, to format the full file, write a function
-" like:
-" nmap <M-F8> :call FormatFile()<CR>
-" function! FormatFile()
-"   let l:lines="all"
-"   " pyf <path-to-this-file>/clang-format.py
-" py3f C:/msys64/mingw64/share/clang/clang-format.py
-" endfunction
-
-" ----------------- "take *.hpp file as c++, not c
-if has("autocmd")
-  augroup MyHppSettings
-	au! |  au BufNewFile, BufReadPost *.hpp *.cpp set filetype=cpp
-	autocmd Filetype cpp setlocal tabstop=4
-  augroup END
-endif 
-
-" ----------------- "take *.dom file as smalltalk
-if has("autocmd")
-  augroup MyDomeSettings
-	au!
-	au BufNewFile, BufReadPost *.dom set filetype=potion
-	autocmd Filetype st setlocal tabstop=4
-  augroup END
-endif 
-
 
 " -----------------
 "limit oldfile history to 30
 set viminfo='10,<30,s10,h,rV:,rU:,rB:
-
-
-
-
 
 if has('autocmd') " For all text files set 'textwidth' to 120 characters.
   augroup vimrcEx
@@ -218,7 +152,7 @@ if has('gui_running')
   " ----------------- make linespacing narrower 
   set linespace=-1
 else
-  colo default
+  " colo default
   highlight LineNr ctermfg=darkgray ctermbg=black
   highlight CursorLineNr ctermfg=gray ctermbg=black
 endif
@@ -231,67 +165,60 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'guns/vim-sexp',  { 'for': 'scheme' } "s-expression for lisp/scheme
 Plug 'tpope/vim-sexp-mappings-for-regular-people',  { 'for': 'scheme' }
+Plug 'jpalardy/vim-slime', { 'for': 'scheme' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
-Plug 'dawikur/algorithm-mnemonics.vim' ", { 'on':  'Algorithm-mnemonics' }
+" Plug 'dawikur/algorithm-mnemonics.vim' ", { 'on':  'Algorithm-mnemonics' }
 Plug 'godlygeek/tabular'
 Plug 'andymass/vim-matchup'
 Plug 'vim-airline/vim-airline'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'flazz/vim-colorschemes'
 
-Plug '0017031/vim-system-copy'
+" Plug '0017031/vim-system-copy'
 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'vim-jp/syntax-vim-ex'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'rhysd/wandbox-vim'
+Plug 'thinca/vim-ambicmd'
+Plug 'PProvost/vim-ps1'
 if has('nvim')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
   Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 endif
+"Plug 'preservim/nerdtree'
 "Plug 'wlangstroth/vim-racket'
-
-
-" Plug 'Valloric/YouCompleteMe'
-" let g:ycm_global_ycm_extra_conf = 'C:/Users/baic/Downloads/apps/gvim/settings/g_ycm_extra_conf.py'
-
-"Plug 'jaxbot/semantic-highlight.vim'
-"Plug 'jeaye/color_coded'
-
-" Plug 'bbchung/clighter8'
-" let g:clighter8_libclang_path='C:/Users/baic/Downloads/apps/gvim/settings/vimfiles/bundle/YouCompleteMe/third_party/ycmd/libclang.dll'
-" let g:clighter8_logfile='a:/ccc.log'
+Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
+
+" for vim-matchup
+au FileType c,cpp,java set mps+=<:>
+
 let g:comfortable_motion_friction = 80.0
 let g:comfortable_motion_air_drag = 4.0
-" packadd syntax-vim-ex
 
-let nvim_qt = $NVIM_QT
-if nvim_qt
-  " echom "nvim-qt"
-  colo m2
-endif
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-" let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
+let g:slime_target = "neovim"
+" let g:system_copy#paste_command='win32yank -o'
+" let g:system_copy#copy_command='win32yank -i'
+" nmap cc <Plug>SystemCopy
+" xmap cc <Plug>SystemCopy
+" nmap ccl <Plug>SystemCopyLine
+" nmap pp <Plug>SystemPaste
+" xmap pp <Plug>SystemPaste
+" nmap ppl <Plug>SystemPasteLine
 
-" g/^s*$/d
-" :[range]g[lobal]/{pattern}/[cmd]
-" Execute the Ex command [cmd] (default ":p") on the
-" lines within [range] where {pattern} matches.
-
-" 'christoomey/vim-system-copy'
-let g:system_copy#paste_command='win32yank -o'
-let g:system_copy#copy_command='win32yank -i'
-nmap cc <Plug>SystemCopy
-xmap cc <Plug>SystemCopy
-nmap ccl <Plug>SystemCopyLine
-nmap pp <Plug>SystemPaste
-xmap pp <Plug>SystemPaste
-nmap ppl <Plug>SystemPasteLine
-
-" coc.vim
-" Map <tab> to trigger completion and navigate to the next item: 
+"coc, Map <tab> to trigger completion and navigate to the next item: 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -303,5 +230,41 @@ inoremap <silent><expr> <TAB>
 " <CR> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
+cnoremap <expr> <Space> ambicmd#expand("\<Space>")
 
 
+" ----------------- " Help File speedups, <enter> to follow tag, shift-<enter> to go back
+" au filetype help nnoremap <buffer> <Tab> /<Bar>\zs\k*\ze<Bar><CR>
+au filetype help nnoremap <buffer> <S-Tab> ?<Bar>\zs\k*\ze<Bar><CR>
+au filetype help nnoremap <buffer><TAB> /\|\zs\S\{-}\|/<CR> 
+au filetype help nnoremap <buffer><CR> <C-]>
+au filetype help nnoremap <buffer><S-CR> <C-T>
+au filetype help nnoremap <buffer>q :q<CR>
+au filetype help set nonumber
+set splitbelow " Split windows, ie Help, make more sense to me below
+au filetype help wincmd _   " Maximze the help on open
+
+
+" ----------------- " remap <Esc> in normal mode to also clear hlsearch highlighting
+nmap <Esc> <Esc>:nohlsearch<CR>
+
+" let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
+
+" g/^s*$/d
+" :[range]g[lobal]/{pattern}/[cmd]
+" Execute the Ex command [cmd] (default ":p") on the
+" lines within [range] where {pattern} matches.
+" let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
+
+" g/^s*$/d
+" :[range]g[lobal]/{pattern}/[cmd]
+" Execute the Ex command [cmd] (default ":p") on the
+" lines within [range] where {pattern} matches.
+
+" ----------------- "auto indent for perl with perltidy
+" if has("autocmd")
+"   augroup MyPerlSettings
+" 	au!
+" 	autocmd filetype perl setlocal equalprg='C:/Users/baic/Downloads/apps/StrawberryPerl/perl/bin/perltidy.bat'
+"   augroup END
+" endif 
