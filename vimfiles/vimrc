@@ -25,6 +25,13 @@ set helplang=en | set langmenu=en_US.UTF-8 |set encoding=UTF-8 " sets the langua
 set laststatus=2                                               " make the status two lines deep so you can see status always
 set wildmode=longest,list,full | set wildmenu                  " bash/readline -alike tab-completion
 set cursorline										           " highlight current line
+" Default Colors for CursorLine
+highlight CursorLine guibg=Grey88
+" Change Color when entering Insert Mode
+autocmd InsertEnter * highlight  CursorLine guibg=DeepSkyBlue
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * highlight  CursorLine guibg=Grey88
+
 set relativenumber | set number | set ignorecase | set smartcase | set tabstop=4 | set nowrap
 
 au FileType text setlocal textwidth=1200
@@ -172,22 +179,22 @@ Plug 'tpope/vim-rsi'
 Plug 'godlygeek/tabular'
 Plug 'andymass/vim-matchup'
 Plug 'vim-airline/vim-airline'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'flazz/vim-colorschemes'
 
 " Plug '0017031/vim-system-copy'
-
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'vim-jp/syntax-vim-ex'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'rhysd/wandbox-vim'
 Plug 'thinca/vim-ambicmd'
 Plug 'PProvost/vim-ps1'
 if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
   Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
   Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+else
+  Plug 'yuttie/comfortable-motion.vim'
 endif
 "Plug 'preservim/nerdtree'
 "Plug 'wlangstroth/vim-racket'
@@ -197,8 +204,9 @@ call plug#end()
 " for vim-matchup
 au FileType c,cpp,java set mps+=<:>
 
-let g:comfortable_motion_friction = 80.0
-let g:comfortable_motion_air_drag = 4.0
+" let g:comfortable_motion_interval = 1000.0/33.0
+" let g:comfortable_motion_friction = 50.0
+" let g:comfortable_motion_air_drag = 1.0
 
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
@@ -247,6 +255,25 @@ au filetype help wincmd _   " Maximze the help on open
 
 " ----------------- " remap <Esc> in normal mode to also clear hlsearch highlighting
 nmap <Esc> <Esc>:nohlsearch<CR>
+
+
+" ----------------- " remap <Alt-]> to <ctrl-o> (go to older cursor position)
+nnoremap <M-]> <C-O>
+
+
+" ----------------- " remap <ctrl-F4> to :bd (close buffer)
+nnoremap <C-F4> :bd<CR>
+nnoremap <M-w> :bd<CR>
+
+
+" ----------------- " remap <ctrl-G> to <ctrl-]> (go to definition)
+nnoremap <C-g> <C-]>
+
+
+" ----------------- " remap <ctrl-v> to (paste from reg *, the system register)
+" inoremap <C-v> <C-r> *
+
+
 
 " let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
 

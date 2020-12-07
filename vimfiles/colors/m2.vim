@@ -60,7 +60,7 @@ hi FoldColumn term=standout ctermbg=Grey ctermfg=DarkBlue guibg=Grey93 guifg=Gre
 hi DiffAdd term=bold ctermbg=LightBlue guibg=LightBlue
 hi DiffChange term=bold ctermbg=LightMagenta guibg=LightMagenta
 hi DiffDelete term=bold ctermfg=Blue ctermbg=LightCyan gui=bold guifg=Blue guibg=LightCyan
-hi CursorLine term=underline cterm=underline guibg=Grey91
+hi CursorLine term=underline cterm=underline guibg=Grey88
 hi CursorColumn term=reverse ctermbg=grey guibg=Grey93
 
 " Colors for syntax highlighting
@@ -90,5 +90,6 @@ hi Delimiter guifg=Blue gui=bold
 hi racketSyntax guifg=SeaGreen
 
 hi helpNote guibg='#d6ebf2' 
+hi helpHyperTextEntry guibg='#edd1c7' 
 hi helpExample guifg='#113c78' gui=bold guibg='#f8eafb'
 " vim: sw=2
