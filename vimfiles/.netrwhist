@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='F:/nvim/latest/share/nvim'
-let g:netrw_dirhist_2='F:/nvim/latest/share/nvim/runtime'
-let g:netrw_dirhist_1='F:/nvim/latest/share/nvim'

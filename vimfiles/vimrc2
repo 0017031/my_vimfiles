@@ -281,10 +281,10 @@ nnoremap <C-g> <C-]>
 
 
 " ----------------- " remap <ctrl-v> to (paste from reg *, the system register)
-" inoremap <C-v> <C-r> *
+inoremap <C-v> <C-r>*
 
 
-
+let g:netrw_home=$TEMP.'/vim'
 " let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
 
 " g/^s*$/d
