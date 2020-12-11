@@ -3,7 +3,7 @@ var myShellObj = new ActiveXObject("WScript.Shell")
 var myProcessEnv = myShellObj.Environment( "PROCESS" )
 // 					 	"f:\\nvim\\latest\\bin\\nvim-qt.exe"
 var runningDirBin =  	"f:\\nvim\\latest\\bin\\"
-var myCommandStr = '"' + myFsObj.BuildPath(runningDirBin, "nvim-qt.exe")  + '"' 
+var myCommandStr = '"' + myFsObj.BuildPath(runningDirBin, "nvim.exe")  + '"' 
 myProcessEnv( "MYVIMRC" ) = myFsObj.BuildPath(myProcessEnv( "userprofile" ), "vimfiles\\vimrc2")
 var arg0 = " -u " + myProcessEnv( "MYVIMRC" )
 var arg=""
@@ -18,13 +18,13 @@ var TemporaryFolder = 2
 var linkfile = myFsObj.BuildPath(myFsObj.GetSpecialFolder(TemporaryFolder), "my_nVim222.lnk")
 var link = myShellObj.CreateShortcut(linkfile)
 link.TargetPath = myCommandStr
-link.Arguments = " -qwindowgeometry 1500x900+150+50  -- " + arg0 + arg
+link.Arguments = arg0 + arg
 link.WorkingDirectory = runningDirBin
-link.IconLocation = myFsObj.BuildPath(runningDirBin, "nvim-qt.exe")
+link.IconLocation = myFsObj.BuildPath(runningDirBin, "nvim.exe")
 link.Save()
 
-myProcessEnv( "NVIM_QT" ) = 1
-myProcessEnv( "VIM" ) = myFsObj.GetAbsolutePathName(myFsObj.BuildPath(runningDirBin, "..\\share\\nvim"))
+// myProcessEnv( "NVIM_QT" ) = 1
+// myProcessEnv( "VIM" ) = myFsObj.GetAbsolutePathName(myFsObj.BuildPath(runningDirBin, "..\\share\\nvim"))
 
 
 myProcessEnv( "LANG" ) = "en_US.UTF-8"

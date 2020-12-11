@@ -3,9 +3,9 @@
 var fs = new ActiveXObject("Scripting.FileSystemObject")
 var shell = new ActiveXObject("WScript.Shell")
 var process_env = shell.Environment( "PROCESS" )
-// 					 	"C:/Users/baic/scoop/apps/fvim/current/FVim.exe"
-var runningDirBin =  	"C:/Users/baic/scoop/apps/fvim/current"
-var myCommandStr = '"' + fs.BuildPath(runningDirBin, "FVim.exe")  + '"' 
+// 					 	"C:/Users/baic/Desktop/neovide.exe"
+var runningDirBin =  	"C:/Users/baic/desktop"
+var myCommandStr = '"' + fs.BuildPath(runningDirBin, "neovide.exe")  + '"' 
 process_env( "MYVIMRC" ) = process_env( "userprofile" ) + "\\vimfiles\\vimrc2"
 var arg0 = " -u " + process_env( "MYVIMRC" )
 
@@ -23,7 +23,7 @@ link.TargetPath = myCommandStr
 // link.Arguments = " -qwindowgeometry 1500x900+150+50  -- " + arg0 + arg // fvim store window-size at: %LOCALAPPDATA%\fvim\config.json
 link.Arguments = arg0+arg
 link.WorkingDirectory = runningDirBin
-link.IconLocation = fs.BuildPath(runningDirBin, "FVim.exe")
+link.IconLocation = fs.BuildPath(runningDirBin, "neovide.exe")
 link.Save()
 
 process_env( "FVIM" ) = 1

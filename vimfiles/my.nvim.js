@@ -10,7 +10,8 @@ var arg=""
 for (i=0; i<WScript.Arguments.length; i++)
 {
     arg = arg + ' ' + 
-		myFsObj.BuildPath(myFsObj.GetAbsolutePathName('.'), WScript.Arguments(i)) // ' "' + WScript.Arguments(i) + '"'
+		// myFsObj.BuildPath(myFsObj.GetAbsolutePathName('.'), WScript.Arguments(i)) // ' "' + WScript.Arguments(i) + '"'
+		myFsObj.GetAbsolutePathName(WScript.Arguments(i))
 }
 
 var TemporaryFolder = 2
@@ -23,7 +24,7 @@ link.IconLocation = myFsObj.BuildPath(runningDirBin, "nvim-qt.exe")
 link.Save()
 
 myProcessEnv( "NVIM_QT" ) = 1
-myProcessEnv( "VIM" ) = myFsObj.GetAbsolutePathName(myFsObj.BuildPath(runningDirBin, "..\\share\\nvim"))
+//myProcessEnv( "VIM" ) = myFsObj.GetAbsolutePathName(myFsObj.BuildPath(runningDirBin, "..\\share\\nvim"))
 
 
 myProcessEnv( "LANG" ) = "en_US.UTF-8"
@@ -41,7 +42,7 @@ myProcessEnv("PATH") = "F:\\node.js\\latest\\;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "f:\\git\\cmd\\;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "f:\\ruby\\latest\\bin;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "f:\\ruby\\Ruby27-x64\\lib\\ruby\\gems\\2.7.0;" + myProcessEnv("PATH")
-myProcessEnv("PATH") = "C:\\Users\\baic\\Downloads\\app\\UltraEdit32-17.00.eng\\GNU\\;" + myProcessEnv("PATH")
+//myProcessEnv("PATH") = "C:\\Users\\baic\\Downloads\\app\\UltraEdit32-17.00.eng\\GNU\\;" + myProcessEnv("PATH")
 // myProcessEnv("PATH") = "f:\\ConEmu\ConEmu\;" + myProcessEnv("PATH")
 
 //perl

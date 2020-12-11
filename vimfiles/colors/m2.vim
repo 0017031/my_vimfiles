@@ -9,12 +9,11 @@ set background=light
 
 hi clear
 if exists("syntax_on")
-  syntax reset
+	syntax reset
 endif
 
 let colors_name = "m2"
 
-hi Normal ctermfg=Black ctermbg=LightGrey guifg=Black guibg=Grey100
 
 hi Pmenu guifg=Grey20 guibg=LightBlue
 
@@ -60,7 +59,7 @@ hi FoldColumn term=standout ctermbg=Grey ctermfg=DarkBlue guibg=Grey93 guifg=Gre
 hi DiffAdd term=bold ctermbg=LightBlue guibg=LightBlue
 hi DiffChange term=bold ctermbg=LightMagenta guibg=LightMagenta
 hi DiffDelete term=bold ctermfg=Blue ctermbg=LightCyan gui=bold guifg=Blue guibg=LightCyan
-hi CursorLine term=underline cterm=underline guibg=Grey88
+hi CursorLine ctermbg=Blue term=underline cterm=underline guibg=Grey88
 hi CursorColumn term=reverse ctermbg=grey guibg=Grey93
 
 " Colors for syntax highlighting
@@ -92,4 +91,25 @@ hi racketSyntax guifg=SeaGreen
 hi helpNote guibg='#d6ebf2' 
 hi helpHyperTextEntry guibg='#edd1c7' 
 hi helpExample guifg='#113c78' gui=bold guibg='#f8eafb'
+
+highlight Cursor guifg=white guibg=black
+" Default Colors for CursorLine
+highlight CursorLine guibg='#f1f5d9'
+" Change Color when entering Insert Mode
+autocmd InsertEnter * highlight  CursorLine guibg=LightBlue ctermbg=LightBlue
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * highlight  CursorLine guibg=Grey88 ctermbg=Black
+
+
+hi Normal ctermfg=Black ctermbg=LightGrey guifg=Black guibg=White
+if has('nvim')
+	hi MsgArea guibg='#eafaff'
+	autocmd CmdLineLeave * hi Normal   ctermbg=LightGrey  guibg=White
+	autocmd CmdLineEnter * hi Normal   ctermbg=LightGreen guibg='#eafaff'
+
+else
+	autocmd CmdLineLeave * hi Normal ctermbg=LightGrey  guibg=White
+	autocmd CmdLineEnter * hi Normal ctermbg=LightGreen guibg=LightGreen
+endif
+
 " vim: sw=2
