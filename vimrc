@@ -179,7 +179,7 @@ endif
 call plug#end()
 
 if index(g:plugs_order,  'vim-ambicmd') >=0
-  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+"  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
 endif
 
 if index(g:plugs_order, 'comfortable-motion.vim') >=0

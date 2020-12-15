@@ -1,5 +1,10 @@
-*~
+plugged/
 
-vimfiles/plugged
+
+*~
+*.swp
+
+
+
 j*.bat
 j*.txt

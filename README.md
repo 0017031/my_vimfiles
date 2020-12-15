@@ -2,9 +2,9 @@
 
 link| source|for
 --- | --- | ---
-~/vimfiles\ |-> `c:\w\settings_for_sync\vim.my.settings\vimfiles` | gvim
-~/.vim |-> `c:\w\settings_for_sync\vim.my.settings\vimfiles` | vim-console (git)
-%localappdata%\nvim  |-> `c:\w\settings_for_sync\vim.my.settings\vimfiles` | nvim, nvim-qt
+~/vimfiles\ |-> `c:\w\settings_for_sync\my.vimfiles` | gvim
+~/.vim |-> `c:\w\settings_for_sync\my.vimfiles` | vim-console (git)
+%localappdata%\nvim  |-> `c:\w\settings_for_sync\my.vimfiles` | nvim, nvim-qt
 
 
 ## my.gvim.js

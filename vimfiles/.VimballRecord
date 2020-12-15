@@ -1,2 +1,0 @@
-Colorizer.vmb: call delete('C:\Users\baic\vimfiles/plugin/ColorizerPlugin.vim')|call delete('C:\Users\baic\vimfiles/doc/Colorizer.txt')|call delete('C:\Users\baic\vimfiles/autoload/Colorizer.vim')
-LargeFile.vba: call delete('C:\Users\baic\vimfiles/plugin/LargeFile.vim')|call delete('C:\Users\baic\vimfiles/doc/LargeFile.txt')
