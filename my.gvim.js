@@ -1,7 +1,6 @@
 var myFsObj = new ActiveXObject("Scripting.FileSystemObject")
 var myShellObj = new ActiveXObject("WScript.Shell")
 var myProcessEnv = myShellObj.Environment( "PROCESS" )
-// 					 	"f:\\nvim\\latest\\bin\\nvim-qt.exe"
 var runningDirBin =  	"f:\\gvim\\"
 var myCommandStr = '"' + myFsObj.BuildPath(runningDirBin, "gvim.exe")  + '"' 
 myProcessEnv( "MYVIMRC" ) = myFsObj.BuildPath(myProcessEnv( "userprofile" ), "vimfiles\\vimrc")

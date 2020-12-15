@@ -1,6 +1,15 @@
 set formatoptions-=ro                                          " Don't insert a " at the start of the new line.
+" no need to press SHIFT
+nnoremap ; :
+"swap in normal mode
+nnoremap ' "
+nnoremap " '
+
+" F9 to source current file
+nnoremap <F9> :w<CR>:so % <CR>
+inoremap <F9> <ESC>:w<CR>:so %<CR>
+
 if has('nvim') 
-  color m2dark " nvim-qt font setting is inside ginit.vim
   if get(g:, 'neovide', v:false) == v:true
 	set guifont=consolas:h22 | set wrap | let g:neovide_fullscreen=1
   endif
@@ -8,7 +17,7 @@ else  "plain vim
   source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
   "gvim
   if has('gui_running') 
-	set lines=36 columns=144 | set guifont =Jetbrains_Mono:h13:cANSI:qDRAFT | colorscheme m2 "screen size and color scheme
+	set lines=36 columns=144 | set guifont =Jetbrains_Mono:h13:cANSI:qDRAFT 
   else "vim-console
 	set term=xterm-256color| colorscheme southernlights
   endif 
@@ -25,12 +34,11 @@ let g:python_host_prog='C:/python27/python.exe'
 set helplang=en | set langmenu=en_US.UTF-8 |set encoding=UTF-8 " sets the language of the menu (gvim)
 set laststatus=2                                               " make the status two lines deep so you can see status always
 set wildmode=longest,list,full | set wildmenu                  " bash/readline alike tab-completion
-set cursorline |set cmdheight=2                                
+set cursorline |set cmdheight=2 |set nowrapscan                                
 set relativenumber | set number | set ignorecase | set smartcase | set tabstop=4 | set nowrap |set textwidth=120
 
 au BufNewFile, BufReadPost *.rkt,*.rktl,*.alt,*.scm set filetype=scheme "racket
 au BufNewFile, BufReadPost *.dom set filetype=st
-
 au FileType c,cpp,java set matchpairs+=<:>
 au Filetype vim         setlocal tabstop=2 sts=2 sw=2 formatoptions-=ro " Don't insert a " at the start of the new line.	
 au Filetype c,cpp,st    setlocal tabstop=4 sts=4 sw=4 formatoptions-=ro	
@@ -40,15 +48,9 @@ au filetype lisp,scheme setlocal equalprg=scmindent.cmd
 if get(g:, 'neovide', v:false) != v:true
   nnoremap <M-Space> :simalt ~<CR> 
 endif
-"shift-insert to past in edit mode
-inoremap <silent>  <S-Insert>  <C-R>+
-inoremap <silent>  <C-v>  <C-R>+
-cnoremap <silent>  <C-v>  <C-R>+
-"no need to shift+:
-nnoremap ; :
-"swap in normal mode
-nnoremap ' "
-nnoremap " '
+"shift-insert to paste in edit mode
+inoremap <silent>  <C-v>  <C-R>*
+cnoremap <silent>  <C-v>  <C-R>*
 
 " alt-F8 to format whole file
 nnoremap <M-F8> gg=G<C-O><C-O> 
@@ -133,53 +135,57 @@ if has('gui_running')
   set linespace=-1
 else
   " colo default
-  highlight LineNr ctermfg=darkgray ctermbg=black
-  highlight CursorLineNr ctermfg=gray ctermbg=black
+  " highlight LineNr ctermfg=darkgray ctermbg=black
+  " highlight CursorLineNr ctermfg=gray ctermbg=black
 endif
 
-"Use single quotes!
-call plug#begin('$HOME/vimfiles/plugged')
+call plug#begin('E:/don_not_sync/vim_plugged')
 Plug 'mhinz/vim-startify' 
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rsi'
 Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-surround'
 
 " ----------------------- "s-expression for lisp/scheme
-Plug 'guns/vim-sexp',  { 'for': 'scheme' } 
-Plug 'tpope/vim-sexp-mappings-for-regular-people',  { 'for': 'scheme' }
-Plug 'jpalardy/vim-slime', { 'for': 'scheme' }
-" https://github.com/junegunn/vim-plug/issues/536#issuecomment-254049916
+" https://github.com/junegunn/vim-plug/issues/536#issuecomment-254049916 (open for certarin file extension )
+" Plug 'guns/vim-sexp',  { 'for': 'scheme' } 
+" Plug 'tpope/vim-sexp-mappings-for-regular-people',  { 'for': 'scheme' }
+" Plug 'jpalardy/vim-slime', { 'for': 'scheme' }
+
+" Plug 'wlangstroth/vim-racket'
 
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'flazz/vim-colorschemes'
 Plug 'xolox/vim-misc'
 
-Plug '0017031/vim-system-copy'
-Plug 'vim-jp/syntax-vim-ex'
+
+
+Plug '0017031/vim-system-copy' 
+Plug 'vim-jp/syntax-vim-ex' 
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'thinca/vim-ambicmd'
-" Plug 'PProvost/vim-ps1'
-" Plug 'yuttie/comfortable-motion.vim'
-
-Plug 'tpope/vim-commentary'
 if has('nvim')
-  Plug 'neovim/nvim-lspconfig'
-
-  Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
-  Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+  " Plug 'neovim/nvim-lspconfig'
+  " Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
+  " Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 endif
 " Plug 'rhysd/wandbox-vim'
+" Plug 'PProvost/vim-ps1'
 " Plug 'dawikur/algorithm-mnemonics.vim' ", { 'on':  'Algorithm-mnemonics' }
+
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 " Plug 'godlygeek/tabular'
+
 " Plug 'andymass/vim-matchup'
 " Plug 'preservim/nerdtree'
-" Plug 'wlangstroth/vim-racket'
 " Plug 'JuliaEditorSupport/julia-vim'
-" Plug 'tpope/vim-surround'
+
 " Plug 'tpope/vim-repeat'
+" Plug 'thinca/vim-ambicmd'
 call plug#end()
 
 if index(g:plugs_order,  'vim-ambicmd') >=0
-"  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+  " cnoremap <expr> <Space> ambicmd#expand("\<Space>")
 endif
 
 if index(g:plugs_order, 'comfortable-motion.vim') >=0
@@ -211,11 +217,9 @@ if index(g:plugs_order, 'vim-system-copy')>=0
   let g:system_copy#copy_command='win32yank -i'
   let g:system_copy#paste_command='win32yank -o'
   nmap cc <Plug>SystemCopy
-  xmap cc <Plug>SystemCopy
-  nmap ccl <Plug>SystemCopyLine
-  nmap pp <Plug>SystemPaste
-  xmap pp <Plug>SystemPaste
-  nmap ppl <Plug>SystemPasteLine
+  nmap cyy <Plug>SystemCopyLine
+  nmap c8 <Plug>SystemPaste
+  nmap cpp <Plug>SystemPasteLine
 endif
 
 if(index(g:plugs_order, 'vim-slime')) >=0
@@ -223,28 +227,26 @@ if(index(g:plugs_order, 'vim-slime')) >=0
   let g:slime_paste_file = tempname()
 endif
 
-"coc, Map <tab> to trigger completion and navigate to the next item: 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? "\<C-n>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ coc#refresh()
-" <CR> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-
-
+if index(g:plugs_order,  'coc.nvim') >=0
+  "coc, Map <tab> to trigger completion and navigate to the next item: 
+  function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+  inoremap <silent><expr> <TAB>
+		\ pumvisible() ? "\<C-n>" :
+		\ <SID>check_back_space() ? "\<TAB>" :
+		\ coc#refresh()
+  " <CR> to confirm completion
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+endif
 
 " ----------------- " Help File speedups, <enter> to follow tag, shift-<enter> to go back
-" au filetype help nnoremap <buffer> <Tab> /<Bar>\zs\k*\ze<Bar><CR>
 au filetype help nnoremap <buffer> <S-Tab> ?<Bar>\zs\k*\ze<Bar><CR>
 au filetype help nnoremap <buffer><TAB> /\|\zs\S\{-}\|/<CR> 
 au filetype help nnoremap <buffer><CR> <C-]>
 au filetype help nnoremap <buffer><S-CR> <C-T>
 au filetype help nnoremap <buffer>q :q<CR>
-au filetype help set nonumber
 set splitbelow " Split windows, ie Help, make more sense to me below
 au filetype help wincmd _   " Maximze the help on open
 
@@ -256,22 +258,11 @@ else
   nmap <Esc> <Esc>:nohlsearch<CR>
 endif
 
-" ----------------- " remap <Alt-]> to <ctrl-o> (go to older cursor position)
-nnoremap <M-]> <C-O>
-
-
 " ----------------- " remap <ctrl-F4> to :bd (close buffer)
 nnoremap <C-F4> :bd<CR>
 nnoremap <M-w> :bd<CR>
-
-
 " ----------------- " remap <ctrl-G> to <ctrl-]> (go to definition)
 nnoremap <C-g> <C-]>
-
-
-" ----------------- " remap <ctrl-v> to (paste from reg *, the system register)
-inoremap <C-v> <C-r>*
-
 
 let g:netrw_home=$TEMP.'/vim'
 
@@ -296,31 +287,11 @@ function! AutoHighlightToggle() " Type <leader>z to toggle highlighting on/off.
 	return 1
   endif
 endfunction
-" let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
 
-" g/^s*$/d
-" :[range]g[lobal]/{pattern}/[cmd]
-" Execute the Ex command [cmd] (default ":p") on the
-" lines within [range] where {pattern} matches.
-" let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#' 
-
-" g/^s*$/d
-" :[range]g[lobal]/{pattern}/[cmd]
-" Execute the Ex command [cmd] (default ":p") on the
-" lines within [range] where {pattern} matches.
-
-" ----------------- "auto indent for perl with perltidy
-" if has("autocmd")
-"   augroup MyPerlSettings
-" 	au!
-" 	autocmd filetype perl setlocal equalprg='C:/Users/baic/Downloads/apps/StrawberryPerl/perl/bin/perltidy.bat'
-"   augroup END
-" endif 
-
-" set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                           "looks good on win10
 
 " <	To enable mode shapes, "Cursor" highlight, and blinking: >
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait100-blinkoff400-blinkon250,sm:block-blinkwait175-blinkoff150-blinkon175
 " set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
-
+" set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                           "looks good on win10
+colorscheme m2dark
 

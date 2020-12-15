@@ -62,7 +62,7 @@ endif
 
 hi Boolean	ctermfg=209	guifg=#ff875f
 hi Character	ctermfg=223	guifg=#ffd7af
-hi Comment	ctermfg=147	guifg=#afafff
+hi Comment	ctermfg=147	guifg=#594d53
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
 hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Green	gui=bold
@@ -92,7 +92,7 @@ hi Pmenu	ctermfg=119	ctermbg=22	guifg=#87ff5f	guibg=#005f00
 hi PmenuSel	ctermfg=226	ctermbg=28	guifg=Yellow	guibg=#008700
 hi PmenuSbar	ctermbg=244	guibg=#808080
 hi PmenuThumb	ctermbg=251	guibg=#c6c6c6
-hi PreProc	ctermfg=201	ctermbg=none	guifg=#ff40ff
+hi PreProc	ctermfg=201	ctermbg=none	guifg=MediumPurple
 hi Question	ctermfg=115	guifg=#87d7af
 hi Search	ctermfg=231	ctermbg=58	guifg=white	guibg=#5f5f00
 hi IncSearch	ctermfg=231	ctermbg=58	guifg=white	guibg=#5f5f00
@@ -103,7 +103,7 @@ hi SpellBad	ctermfg=196	ctermbg=none	cterm=underline	guisp=#ff0000	gui=undercurl
 hi SpellLocal	ctermfg=28	ctermbg=none	cterm=underline	guisp=#00AA00	gui=undercurl
 hi SpellRare	ctermfg=201	ctermbg=none	cterm=underline	guisp=#ff00ff	gui=undercurl
 hi SpellCap	ctermfg=33	ctermbg=none	cterm=underline	guisp=#0087ff	gui=undercurl
-hi Statement	ctermfg=226	guifg=yellow	cterm=none	gui=none
+hi Statement	ctermfg=226	guifg=CornflowerBlue	cterm=none	gui=none
 hi StatusLine	ctermfg=16	ctermbg=244	guifg=white	guibg=#4e4e4e	gui=none	cterm=none
 hi StatusLineNC	ctermfg=16	ctermbg=240	guifg=black	guibg=#4e4e4e	gui=none	cterm=none
 hi VertSplit	ctermfg=16	ctermbg=239	guifg=black	guibg=gray30	gui=none	cterm=none
@@ -180,16 +180,17 @@ hi CSVColumnOdd		ctermfg=40	guifg=#00d700
 hi CSVColumnEven	ctermfg=39	guifg=#00afff
 
 highlight CursorLine guibg=Grey11
-autocmd InsertEnter * highlight  CursorLine guibg=DarkBlue 
-autocmd InsertLeave * highlight  CursorLine guibg=Grey11 
+
+" autocmd InsertEnter * highlight  CursorLine guibg=DarkBlue 
+" autocmd InsertLeave * highlight  CursorLine guibg=Grey11 
 
 if has('nvim')
-	hi MsgArea guibg=Black
+	" hi MsgArea guibg=Black
 
-	autocmd CmdLineLeave * hi Normal    guibg=Black
-	autocmd CmdLineEnter * hi Normal    guibg=Grey7
+	" autocmd CmdLineLeave * hi Normal    guibg=Black
+	" autocmd CmdLineEnter * hi Normal    guibg=Grey7
 
 else
-	autocmd CmdLineLeave * hi Normal  guibg=Black
-	autocmd CmdLineEnter * hi Normal  guibg=Grey21
+	" autocmd CmdLineLeave * hi Normal  guibg=Black
+	" autocmd CmdLineEnter * hi Normal  guibg=Grey21
 endif

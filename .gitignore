@@ -3,7 +3,7 @@ plugged/
 
 *~
 *.swp
-
+*.tmp
 
 
 j*.bat
