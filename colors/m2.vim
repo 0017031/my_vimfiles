@@ -45,7 +45,6 @@ hi DiffText term=reverse cterm=bold ctermbg=Red gui=bold guibg=Red
 hi Cursor guibg=Green guifg=NONE
 hi lCursor guibg=Cyan guifg=NONE
 hi Directory term=bold ctermfg=DarkBlue guifg=Blue
-hi LineNr term=underline ctermfg=Brown guifg=Grey50 guibg=Grey93
 hi MoreMsg term=bold ctermfg=DarkGreen gui=bold guifg=SeaGreen
 hi NonText term=bold ctermfg=Blue gui=bold guifg=DarkYellow guibg=Grey98
 hi Question term=standout ctermfg=DarkGreen gui=bold guifg=SeaGreen
@@ -59,7 +58,6 @@ hi FoldColumn term=standout ctermbg=Grey ctermfg=DarkBlue guibg=Grey93 guifg=Gre
 hi DiffAdd term=bold ctermbg=LightBlue guibg=LightBlue
 hi DiffChange term=bold ctermbg=LightMagenta guibg=LightMagenta
 hi DiffDelete term=bold ctermfg=Blue ctermbg=LightCyan gui=bold guifg=Blue guibg=LightCyan
-hi CursorLine ctermbg=Blue term=underline cterm=underline guibg=Grey88
 hi CursorColumn term=reverse ctermbg=grey guibg=Grey93
 
 " Colors for syntax highlighting
@@ -92,24 +90,24 @@ hi helpNote guibg='#d6ebf2'
 hi helpHyperTextEntry guibg='#edd1c7' 
 hi helpExample guifg='#113c78' gui=bold guibg='#f8eafb'
 
-highlight Cursor guifg=white guibg=black
-" Default Colors for CursorLine
-highlight CursorLine guibg='#f1f5d9'
-" Change Color when entering Insert Mode
-autocmd InsertEnter * highlight  CursorLine guibg=LightBlue ctermbg=LightBlue
-" Revert Color to default when leaving Insert Mode
-autocmd InsertLeave * highlight  CursorLine guibg=Grey88 ctermbg=Black
-
-
+hi Cursor guifg=white guibg=black
 hi Normal ctermfg=Black ctermbg=LightGrey guifg=Black guibg=White
-if has('nvim')
-	hi MsgArea guibg='#eafaff'
-	autocmd CmdLineLeave * hi Normal   ctermbg=LightGrey  guibg=White
-	autocmd CmdLineEnter * hi Normal   ctermbg=LightGreen guibg='#eafaff'
 
-else
-	autocmd CmdLineLeave * hi Normal ctermbg=LightGrey  guibg=White
-	autocmd CmdLineEnter * hi Normal ctermbg=LightGreen guibg=LightGreen
-endif
+hi CursorLine ctermbg=Blue term=underline cterm=underline guibg=#f1f5d9
+hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=#585858
+hi LineNr term=underline ctermfg=Brown guifg=Grey50 guibg=Grey93
+augroup t1
+	autocmd!
+	autocmd InsertEnter * hi  CursorLine guibg=LightBlue ctermbg=LightBlue
+	autocmd InsertLeave * hi CursorLine ctermbg=Blue term=underline cterm=underline guibg=#f1f5d9
+
+	autocmd CmdLineLeave * hi CursorLine	ctermbg=235	cterm=none	guibg=#f1f5d9	gui=none
+	autocmd CmdLineLeave * hi LineNr term=underline ctermfg=Brown guifg=Grey50 guibg=Grey93
+
+
+	autocmd CmdLineEnter * hi CursorLine	ctermbg=235	cterm=none	guibg=White	gui=none
+	autocmd CmdLineEnter * hi LineNr term=underline ctermfg=Brown guifg=SkyBlue1 guibg=White
+	autocmd CmdLineEnter * redraw
+augroup end
 
 " vim: sw=2

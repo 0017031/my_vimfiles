@@ -6,21 +6,25 @@ nnoremap ' "
 nnoremap " '
 
 " F9 to source current file
-nnoremap <F9> :w<CR>:so % <CR>
-inoremap <F9> <ESC>:w<CR>:so %<CR>
-
+if has('nvim')
+	nnoremap <F9> <Cmd>w<CR><Cmd>so % <CR>
+	inoremap <F9> <ESC><Cmd>w<CR><Cmd>so %<CR>
+else
+	nnoremap <F9> :w<CR>:so % <CR>
+	inoremap <F9> <ESC>:w<CR>:so %<CR>
+endif
 if has('nvim') 
-  if get(g:, 'neovide', v:false) == v:true
-	set guifont=consolas:h22 | set wrap | let g:neovide_fullscreen=1
-  endif
+	if get(g:, 'neovide', v:false) == v:true "neovide
+		set guifont=consolas:h22 | set wrap | let g:neovide_fullscreen=1
+	endif
 else  "plain vim
-  source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
-  "gvim
-  if has('gui_running') 
-	set lines=36 columns=144 | set guifont =Jetbrains_Mono:h13:cANSI:qDRAFT 
-  else "vim-console
-	set term=xterm-256color| colorscheme southernlights
-  endif 
+	source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
+	"gvim
+	if has('gui_running') 
+		set lines=36 columns=144 | set guifont =JetBrains_Mono:h14
+	else "vim-console
+		set term=xterm-256color| colorscheme southernlights
+	endif 
 endif
 
 set backup                                                     " keep a backup file (restore to previous version)
@@ -46,7 +50,7 @@ au filetype lisp,scheme setlocal equalprg=scmindent.cmd
 
 "alt-space to close vim (not available in neovide)
 if get(g:, 'neovide', v:false) != v:true
-  nnoremap <M-Space> :simalt ~<CR> 
+	nnoremap <M-Space> :simalt ~<CR> 
 endif
 "shift-insert to paste in edit mode
 inoremap <silent>  <C-v>  <C-R>*
@@ -59,8 +63,8 @@ au FileType c,cpp,javascript,java,cs nnoremap  <buffer> <M-F8>   :call FormatFil
 au FileType c,cpp,javascript,java,cs noremap   <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
 au FileType c,cpp,javascript,java,cs inoremap  <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
 function! FormatFile()
-  let l:lines="all" 
-  py3f f:/gnuWin32/bin/clang-format.py3
+	let l:lines="all" 
+	py3f f:/gnuWin32/bin/clang-format.py3
 endfunction
 
 " alt-left/right to navigate
@@ -104,13 +108,13 @@ nmap <leader>et :let @*=expand("%")<CR>
 cnoreabbrev <expr> mr 'browse old!'
 " Map F10 to display the syntax highlighting group of the current word
 nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+			\ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 nmap <leader>hh :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' 
-	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" 
-	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" 
-	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" 
+			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" 
+			\ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " -----------------
 "commandline key-mapping
@@ -122,21 +126,21 @@ set viminfo='10,<30,s10,h,rV:,rU:,rB:
 
 " ----------------- "for ms-windows, arrow-keys don't leave visaul-mode
 if has('win32')
-  set keymodel-=stopsel
+	set keymodel-=stopsel
 endif
 " ----------------- "virtual block -- when in visual-block-mode, cursors can move beyond eof.
 set virtualedit=block
 
 if has('gui_running')
-  " ----------------- ease the alt-b buffer menu.
-  let no_buffers_menu = 1 
-  set guioptions -=T "no tool-bar in gui
-  " ----------------- make linespacing narrower 
-  set linespace=-1
+	" ----------------- ease the alt-b buffer menu.
+	let no_buffers_menu = 1 
+	set guioptions -=T "no tool-bar in gui
+	" ----------------- make linespacing narrower 
+	set linespace=-1
 else
-  " colo default
-  " highlight LineNr ctermfg=darkgray ctermbg=black
-  " highlight CursorLineNr ctermfg=gray ctermbg=black
+	" colo default
+	" highlight LineNr ctermfg=darkgray ctermbg=black
+	" highlight CursorLineNr ctermfg=gray ctermbg=black
 endif
 
 call plug#begin('E:/don_not_sync/vim_plugged')
@@ -165,9 +169,9 @@ Plug 'vim-jp/syntax-vim-ex'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if has('nvim')
-  " Plug 'neovim/nvim-lspconfig'
-  " Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
-  " Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+	" Plug 'neovim/nvim-lspconfig'
+	" Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
+	" Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 endif
 " Plug 'rhysd/wandbox-vim'
 " Plug 'PProvost/vim-ps1'
@@ -185,60 +189,60 @@ endif
 call plug#end()
 
 if index(g:plugs_order,  'vim-ambicmd') >=0
-  " cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+	" cnoremap <expr> <Space> ambicmd#expand("\<Space>")
 endif
 
 if index(g:plugs_order, 'comfortable-motion.vim') >=0
-  set mouse=a
-  let g:comfortable_motion_no_default_key_mappings = 1
-  let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/d:ecrease this value.
-  let g:comfortable_motion_interval = 1000.0/15.0
-  let g:comfortable_motion_friction = 0.0
-  let g:comfortable_motion_air_drag = 4.0
-  noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(80)<CR>
-  noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-80)<CR>
-  nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
-  nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
-  nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
-  nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
+	set mouse=a
+	let g:comfortable_motion_no_default_key_mappings = 1
+	let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/d:ecrease this value.
+	let g:comfortable_motion_interval = 1000.0/15.0
+	let g:comfortable_motion_friction = 0.0
+	let g:comfortable_motion_air_drag = 4.0
+	noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(80)<CR>
+	noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-80)<CR>
+	nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+	nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+	nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+	nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 endif
 
 if index(g:plugs_order, 'haskell-vim') >=0
-  let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-  let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-  let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-  let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-  let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-  let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-  let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+	let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+	let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+	let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+	let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+	let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+	let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+	let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 endif
 
 if index(g:plugs_order, 'vim-system-copy')>=0
-  let g:system_copy#copy_command='win32yank -i'
-  let g:system_copy#paste_command='win32yank -o'
-  nmap cc <Plug>SystemCopy
-  nmap cyy <Plug>SystemCopyLine
-  nmap c8 <Plug>SystemPaste
-  nmap cpp <Plug>SystemPasteLine
+	let g:system_copy#copy_command='win32yank -i'
+	let g:system_copy#paste_command='win32yank -o'
+	nmap cc <Plug>SystemCopy
+	nmap cyy <Plug>SystemCopyLine
+	nmap c8 <Plug>SystemPaste
+	nmap cpp <Plug>SystemPasteLine
 endif
 
 if(index(g:plugs_order, 'vim-slime')) >=0
-  let g:slime_target = "neovim"
-  let g:slime_paste_file = tempname()
+	let g:slime_target = "neovim"
+	let g:slime_paste_file = tempname()
 endif
 
 if index(g:plugs_order,  'coc.nvim') >=0
-  "coc, Map <tab> to trigger completion and navigate to the next item: 
-  function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction
-  inoremap <silent><expr> <TAB>
-		\ pumvisible() ? "\<C-n>" :
-		\ <SID>check_back_space() ? "\<TAB>" :
-		\ coc#refresh()
-  " <CR> to confirm completion
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+	"coc, Map <tab> to trigger completion and navigate to the next item: 
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
+	endfunction
+	inoremap <silent><expr> <TAB>
+				\ pumvisible() ? "\<C-n>" :
+				\ <SID>check_back_space() ? "\<TAB>" :
+				\ coc#refresh()
+	" <CR> to confirm completion
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 endif
 
 " ----------------- " Help File speedups, <enter> to follow tag, shift-<enter> to go back
@@ -249,13 +253,14 @@ au filetype help nnoremap <buffer><S-CR> <C-T>
 au filetype help nnoremap <buffer>q :q<CR>
 set splitbelow " Split windows, ie Help, make more sense to me below
 au filetype help wincmd _   " Maximze the help on open
+au filetype help set number
 
 
 " ----------------- " remap <Esc> in normal mode to also clear hlsearch highlighting
 if has('nvim')
-  nmap <Esc> <Esc><Cmd>nohlsearch<CR>
+	nmap <Esc> <Esc><Cmd>nohlsearch<CR>
 else
-  nmap <Esc> <Esc>:nohlsearch<CR>
+	nmap <Esc> <Esc>:nohlsearch<CR>
 endif
 
 " ----------------- " remap <ctrl-F4> to :bd (close buffer)
@@ -270,28 +275,27 @@ let g:netrw_home=$TEMP.'/vim'
 " autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 " ----------------- auto highlight words under cursor, when idle
 function! AutoHighlightToggle() " Type <leader>z to toggle highlighting on/off.
-  let @/ = ''
-  if exists('#auto_highlight')
-	au! auto_highlight
-	augroup! auto_highlight
-	setl updatetime=4000
-	echo 'Highlight current word: off'
-	return 0
-  else
-	augroup auto_highlight
-	  au!
-	  au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-	augroup end
-	setl updatetime=650
-	echo 'Highlight current word: ON'
-	return 1
-  endif
+	let @/ = ''
+	if exists('#auto_highlight')
+		au! auto_highlight
+		augroup! auto_highlight
+		setl updatetime=4000
+		echo 'Highlight current word: off'
+		return 0
+	else
+		augroup auto_highlight
+			au!
+			au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+		augroup end
+		setl updatetime=650
+		echo 'Highlight current word: ON'
+		return 1
+	endif
 endfunction
 
 
 " <	To enable mode shapes, "Cursor" highlight, and blinking: >
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait100-blinkoff400-blinkon250,sm:block-blinkwait175-blinkoff150-blinkon175
+set guicursor=n-v:block,i-c-ci-ve:ver11,r-cr:hor20,o:hor50,a:blinkwait100-blinkoff400-blinkon250,sm:block-blinkwait175-blinkoff150-blinkon175
 " set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 " set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                           "looks good on win10
 colorscheme m2dark
-

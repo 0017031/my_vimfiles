@@ -1,7 +1,7 @@
 " To use, save this file and type ":so %"
 " Optional: First enter ":let g:rgb_fg=1" to highlight foreground only.
 " Restore normal highlighting by typing ":e"
-let g:rgb_fg=0
+let  s:show_color='foreground'
 setlocal nohlsearch
 call search('^" BEGIN_COLOR_LIST', 'e')
 while search('\w\+') > 0
@@ -13,7 +13,11 @@ while search('\w\+') > 0
 	if &background=='dark'
 		execute 'hi col_'.w.' guifg='.w.' guibg=NONE'
 	else
-		execute 'hi col_'.w.' guifg=black guibg='.w
+		if s:show_color == 'foreground'
+			execute 'hi col_'.w.' guifg='.w.' guibg=NONE'
+		else
+			execute 'hi col_'.w.' guifg=black guibg='.w
+		endif
 	endif
 	execute 'syn keyword col_'.w.' '.w.' contained containedin=vimLineComment'
 endwhile

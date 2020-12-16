@@ -13,51 +13,51 @@ set background=dark
 hi clear
 
 if exists("syntax_on")
-  syntax reset
+	syntax reset
 endif
 
 let colors_name = "southernlights"
 
 if &term =~ "xterm" || &term =~ "256" || $DISPLAY != ""
-    set t_Co=256
+	set t_Co=256
 endif
 
 if &t_Co < 256 && !has("gui_running")
-    hi String cterm=none ctermfg=white
-    hi Boolean cterm=none ctermfg=red
-    hi Special cterm=none ctermfg=darkyellow
-    hi Number cterm=none ctermfg=magenta
-    hi Comment cterm=none ctermfg=darkcyan
-    hi Function cterm=none ctermfg=cyan
-    hi PreProc cterm=none ctermfg=lightblue
-    hi Type cterm=none ctermfg=lightgreen
-    hi Pmenu	ctermfg=black	ctermbg=darkgreen
-    hi PmenuSel	ctermfg=darkblue	ctermbg=lightgreen
-    hi Character cterm=none
-    hi SpellLocal ctermfg=black ctermbg=green
-    "hi StatusLine	cterm=none ctermfg=white	ctermbg=gray
-    "hi StatusLineNC	cterm=none ctermfg=black	ctermbg=gray
-    "hi TabLineSel	cterm=none	ctermfg=white	ctermbg=gray
-    "hi TabLine     	cterm=none	ctermfg=black	ctermbg=gray
-    "hi TabLineFill      cterm=none	ctermfg=gray	ctermbg=black
-    hi diffFile ctermfg=cyan
-    hi diffAdded	ctermfg=green
-    hi diffRemoved	ctermfg=darkyellow
-    hi link wdiffOld diffRemoved
-    hi link wdiffNew diffAdded
-    hi mailQuoted1 ctermfg=green
-    hi mailQuoted2 ctermfg=cyan
-    hi mailQuoted3 ctermfg=darkcyan
-    hi mailQuoted4 ctermfg=blue
-    hi mailQuoted5 ctermfg=blue
-    hi mailQuoted6 ctermfg=blue
-    hi mailSignature ctermfg=darkcyan
-    hi SignColumn ctermfg=yellow ctermbg=green
-    hi ShowMarksHLl ctermfg=yellow ctermbg=green
-    hi ShowMarksHLu ctermfg=yellow ctermbg=green
-    hi ShowMarksHLo ctermfg=yellow ctermbg=green
-    hi ShowMarksHLm ctermfg=yellow ctermbg=green
-    finish
+	hi String cterm=none ctermfg=white
+	hi Boolean cterm=none ctermfg=red
+	hi Special cterm=none ctermfg=darkyellow
+	hi Number cterm=none ctermfg=magenta
+	hi Comment cterm=none ctermfg=darkcyan
+	hi Function cterm=none ctermfg=cyan
+	hi PreProc cterm=none ctermfg=lightblue
+	hi Type cterm=none ctermfg=lightgreen
+	hi Pmenu	ctermfg=black	ctermbg=darkgreen
+	hi PmenuSel	ctermfg=darkblue	ctermbg=lightgreen
+	hi Character cterm=none
+	hi SpellLocal ctermfg=black ctermbg=green
+	"hi StatusLine	cterm=none ctermfg=white	ctermbg=gray
+	"hi StatusLineNC	cterm=none ctermfg=black	ctermbg=gray
+	"hi TabLineSel	cterm=none	ctermfg=white	ctermbg=gray
+	"hi TabLine     	cterm=none	ctermfg=black	ctermbg=gray
+	"hi TabLineFill      cterm=none	ctermfg=gray	ctermbg=black
+	hi diffFile ctermfg=cyan
+	hi diffAdded	ctermfg=green
+	hi diffRemoved	ctermfg=darkyellow
+	hi link wdiffOld diffRemoved
+	hi link wdiffNew diffAdded
+	hi mailQuoted1 ctermfg=green
+	hi mailQuoted2 ctermfg=cyan
+	hi mailQuoted3 ctermfg=darkcyan
+	hi mailQuoted4 ctermfg=blue
+	hi mailQuoted5 ctermfg=blue
+	hi mailQuoted6 ctermfg=blue
+	hi mailSignature ctermfg=darkcyan
+	hi SignColumn ctermfg=yellow ctermbg=green
+	hi ShowMarksHLl ctermfg=yellow ctermbg=green
+	hi ShowMarksHLu ctermfg=yellow ctermbg=green
+	hi ShowMarksHLo ctermfg=yellow ctermbg=green
+	hi ShowMarksHLm ctermfg=yellow ctermbg=green
+	finish
 endif
 
 hi Boolean	ctermfg=209	guifg=#ff875f
@@ -66,7 +66,6 @@ hi Comment	ctermfg=147	guifg=#594d53
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
 hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Green	gui=bold
-hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi CursorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi ColorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi DiffAdd	ctermfg=227	ctermbg=22	guifg=#d7ff5f	guibg=#005f00
@@ -79,12 +78,10 @@ hi Folded	ctermfg=86	ctermbg=240	guifg=#00ffff	guibg=#585858
 hi FoldColumn	ctermfg=86	ctermbg=240	guifg=#00ffff	guibg=#585858
 hi Function	ctermfg=117	guifg=#87d7ff
 hi Identifier	ctermfg=86	cterm=none	guifg=cyan	gui=none
-hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=#585858
 hi CursorLineNr	ctermfg=16	ctermbg=243	guifg=Black	guibg=#585858
 hi MatchParen	ctermfg=231	ctermbg=58	guifg=white	guibg=#5f5f00
 hi NonText	ctermfg=21	guifg=#0000ff
 hi Number	ctermfg=223	guifg=#ffd7af
-hi Normal	ctermfg=253	ctermbg=16	guifg=#dadada	guibg=Black
 hi MoreMsg	ctermfg=36	guifg=#00af87
 hi ModeMsg	ctermfg=253	guifg=#dadada
 hi Operator	ctermfg=204	guifg=#ff5f87
@@ -179,18 +176,18 @@ hi CSVColumnHeaderEven	ctermfg=45	ctermbg=236	guifg=#00d7ff	guibg=#303030
 hi CSVColumnOdd		ctermfg=40	guifg=#00d700
 hi CSVColumnEven	ctermfg=39	guifg=#00afff
 
-highlight CursorLine guibg=Grey11
+hi Normal	ctermfg=253	ctermbg=16	guifg=#dadada	guibg=Black
+hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
+hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=#585858
+augroup t1
+	autocmd!
+	autocmd InsertEnter * hi CursorLine	ctermbg=235	cterm=none	guibg=DarkBlue	gui=none
+	autocmd InsertLeave * hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
 
-" autocmd InsertEnter * highlight  CursorLine guibg=DarkBlue 
-" autocmd InsertLeave * highlight  CursorLine guibg=Grey11 
+	autocmd CmdLineLeave * hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
+	autocmd CmdLineLeave * hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=#585858
 
-if has('nvim')
-	" hi MsgArea guibg=Black
-
-	" autocmd CmdLineLeave * hi Normal    guibg=Black
-	" autocmd CmdLineEnter * hi Normal    guibg=Grey7
-
-else
-	" autocmd CmdLineLeave * hi Normal  guibg=Black
-	" autocmd CmdLineEnter * hi Normal  guibg=Grey21
-endif
+	autocmd CmdLineEnter * hi CursorLine	ctermbg=235	cterm=none	guibg=#000000	gui=none
+	autocmd CmdLineEnter * hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=Grey7
+	autocmd CmdLineEnter * redraw
+augroup end
