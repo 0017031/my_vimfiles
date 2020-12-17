@@ -1,11 +1,7 @@
 " Vim color scheme
 "
-" Name:        southernlights256.vim
-" Maintainer:  Jakson Aquino
-" Last Change: Mon Oct 12, 2015  10:55AM
-" License:     GNU/GPL
-"
-" Based on other color schemes. The starting point was 'torte'
+" Name:        m2dark.vim
+" Based on 'southernlights' color schemes, of which the starting point was 'torte'
 
 
 set background=dark
@@ -16,7 +12,7 @@ if exists("syntax_on")
 	syntax reset
 endif
 
-let colors_name = "southernlights"
+let colors_name = "m2dark"
 
 if &term =~ "xterm" || &term =~ "256" || $DISPLAY != ""
 	set t_Co=256

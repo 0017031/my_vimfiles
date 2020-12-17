@@ -4,7 +4,7 @@ var myProcessEnv = myShellObj.Environment( "PROCESS" )
 var runningDirBin =  	"f:\\gvim\\"
 var myCommandStr = '"' + myFsObj.BuildPath(runningDirBin, "gvim.exe")  + '"' 
 myProcessEnv( "MYVIMRC" ) = myFsObj.BuildPath(myProcessEnv( "userprofile" ), "vimfiles\\vimrc")
-var arg0 = " -u " + myProcessEnv( "MYVIMRC" )
+var arg0 = " -u " + myProcessEnv( "MYVIMRC" ) + ' -U NONE'
 var arg=""
 for (i=0; i<WScript.Arguments.length; i++)
 {

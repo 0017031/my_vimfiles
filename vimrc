@@ -23,7 +23,7 @@ else  "plain vim
 	if has('gui_running') 
 		set lines=36 columns=144 | set guifont =JetBrains_Mono:h14
 	else "vim-console
-		set term=xterm-256color| colorscheme southernlights
+		set term=xterm-256color
 	endif 
 endif
 
