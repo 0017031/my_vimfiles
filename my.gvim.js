@@ -16,8 +16,6 @@ var linkfile = myFsObj.BuildPath(myFsObj.GetSpecialFolder(TemporaryFolder), "my_
 var link = myShellObj.CreateShortcut(linkfile)
 link.TargetPath = myCommandStr
 link.Arguments = arg + arg0
-link.WorkingDirectory = runningDirBin
-link.IconLocation = myFsObj.BuildPath(runningDirBin, "gvim.exe")
 link.Save()
 
 myProcessEnv( "GVIM" ) = 1
