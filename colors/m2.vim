@@ -70,7 +70,7 @@ hi TagListFileName gui=bold guifg='#5c1515' guibg='#e7eeee'
 hi TagListTagName gui=bold guifg=DarkBlue gui=bold
 " hi Constant term=underline ctermfg=DarkRed guifg=grey23 guibg=Grey98
 hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue guibg=Grey97
-hi Ignore ctermfg=LightGrey guifg=grey90
+hi Ignore ctermfg=LightGrey guifg=grey73
 
 hi cType guifg=blue gui=NONE
 hi cppType guifg=blue gui=NONE

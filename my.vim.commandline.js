@@ -2,26 +2,26 @@ var myFsObj = new ActiveXObject("Scripting.FileSystemObject")
 var myShellObj = new ActiveXObject("WScript.Shell")
 var myProcessEnv = myShellObj.Environment( "PROCESS" )
 // 					 	"f:\\nvim\\latest\\bin\\nvim-qt.exe"
-var runningDirBin =  	"f:\\gvim\\"
-var myCommandStr = '"' + myFsObj.BuildPath(runningDirBin, "gvim.exe")  + '"' 
+var runningDirBin =  	"C:/Users/baic/Downloads/apps/git/usr/bin"
+var myCommandStr = '"' + myFsObj.BuildPath(runningDirBin, "vim.exe")  + '"' 
 myProcessEnv( "MYVIMRC" ) = myFsObj.BuildPath(myProcessEnv( "userprofile" ), "vimfiles\\vimrc")
 var arg0 = " -u " + myProcessEnv( "MYVIMRC" )
 var arg=""
 for (i=0; i<WScript.Arguments.length; i++)
 {
     arg = arg + ' ' + 
-		myFsObj.BuildPath(myFsObj.GetAbsolutePathName('.'), WScript.Arguments(i)) // ' "' + WScript.Arguments(i) + '"'
+		// myFsObj.BuildPath(myFsObj.GetAbsolutePathName('.'), WScript.Arguments(i)) // ' "' + WScript.Arguments(i) + '"'
+		myFsObj.GetAbsolutePathName(WScript.Arguments(i))
 }
+
 var TemporaryFolder = 2
-var linkfile = myFsObj.BuildPath(myFsObj.GetSpecialFolder(TemporaryFolder), "my_gVim333.lnk")
+var linkfile = myFsObj.BuildPath(myFsObj.GetSpecialFolder(TemporaryFolder), "my_nVim222.lnk")
 var link = myShellObj.CreateShortcut(linkfile)
 link.TargetPath = myCommandStr
-link.Arguments = arg + arg0
+link.Arguments = arg0 + arg
 link.WorkingDirectory = runningDirBin
-link.IconLocation = myFsObj.BuildPath(runningDirBin, "gvim.exe")
 link.Save()
 
-myProcessEnv( "GVIM" ) = 1
 
 myProcessEnv( "LANG" ) = "en_US.UTF-8"
 myProcessEnv( "HOME" ) = myProcessEnv( "userprofile" )
@@ -30,14 +30,13 @@ myProcessEnv( "HOMEPATH" ) = myProcessEnv( "userprofile" )
 myProcessEnv.Remove("HOMESHARE")
 myProcessEnv( "http_proxy" ) = "http://127.0.0.1:8123"
 myProcessEnv( "https_proxy" ) = "http://127.0.0.1:8123"
+myProcessEnv( "NVIM_PYTHON_LOG_FILE" ) = myFsObj.BuildPath(myProcessEnv( "userprofile" ), "\\AppData\\Local\\nvim-data\\NVIM_PYTHON_LOG_FILE.txt")
 
 myProcessEnv("PATH") = "C:\\Windows\\System32\\;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\" 
 myProcessEnv("PATH") = "F:\\node.js\\latest\\node_modules\\yarn\\bin;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "F:\\node.js\\latest\\;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "f:\\git\\cmd\\;" + myProcessEnv("PATH")
-myProcessEnv("PATH") = "f:\\ruby\\latest\\bin;" + myProcessEnv("PATH")
-myProcessEnv("PATH") = "f:\\ruby\\Ruby27-x64\\lib\\ruby\\gems\\2.7.0;" + myProcessEnv("PATH")
-myProcessEnv("PATH") = "f:\\ConEmu\ConEmu\;" + myProcessEnv("PATH")
+myProcessEnv("PATH") = myProcessEnv("userprofile")+ "\\scoop\\apps\\racket\\current;" + myProcessEnv("PATH")
 
 //perl
 // myProcessEnv("PATH") = "f:\\perl\\bin;" + myProcessEnv("PATH")
@@ -54,9 +53,7 @@ myProcessEnv("PATH") = "f:\\ConEmu\ConEmu\;" + myProcessEnv("PATH")
 
 myShellObj.Run(linkfile)
 
+
 // WScript.Echo(WScript.Arguments.Count());
-// myProcessEnv( "LC_CTYPE" ) = "en_US.utf8"
-// myProcessEnv( "LC_COLLATE" ) = "C"
-// myProcessEnv( "HOMESHARE" ) = "\\\\SHAWFILEP01\\Users$\\BaiC"
-// myProcessEnv("PATH") = "c:/msys2/mingw64/bin/;" + myProcessEnv("PATH")
-// myProcessEnv("PATH") = "F:/StrawberryPerl_x64/perl/bin/;" + myProcessEnv("PATH")
+
+

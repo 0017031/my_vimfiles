@@ -22,11 +22,10 @@ my_env.update({
 my_env['PATH'] = r"C:\Windows\System32\;C:\Windows\System32\WindowsPowerShell\v1.0"
 my_env['PATH'] = rf"F:\node.js\latest\node_modules\yarn\bin;{my_env.get('PATH')}"
 my_env['PATH'] = rf"F:\node.js\latest\;{my_env.get('PATH')}"
-my_env['PATH'] = rf"{my_env.get('USERPROFILE')}\scoop\apps\racket\current;{my_env.get('PATH')}"
 my_env['PATH'] = rf"F:\git\cmd\;{my_env.get('PATH')}"
 
 userprofile = Path(os.environ.get('USERPROFILE'))
-exe_path = userprofile / r'scoop\apps\vim\current\gvim.exe'
+exe_path = r'f:\nvim\l\nvim-qt.exe'
 my_command = [exe_path, '-U', 'NONE']
 my_command.extend(sys.argv[1:])
 subprocess.run(my_command, env=my_env, cwd=r'c:\w\mygithub\python-scripts')

@@ -40,10 +40,7 @@ myProcessEnv("PATH") = "C:\\Windows\\System32\\;C:\\Windows\\System32\\WindowsPo
 myProcessEnv("PATH") = "F:\\node.js\\latest\\node_modules\\yarn\\bin;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "F:\\node.js\\latest\\;" + myProcessEnv("PATH")
 myProcessEnv("PATH") = "f:\\git\\cmd\\;" + myProcessEnv("PATH")
-myProcessEnv("PATH") = "f:\\ruby\\latest\\bin;" + myProcessEnv("PATH")
-myProcessEnv("PATH") = "f:\\ruby\\Ruby27-x64\\lib\\ruby\\gems\\2.7.0;" + myProcessEnv("PATH")
-//myProcessEnv("PATH") = "C:\\Users\\baic\\Downloads\\app\\UltraEdit32-17.00.eng\\GNU\\;" + myProcessEnv("PATH")
-// myProcessEnv("PATH") = "f:\\ConEmu\ConEmu\;" + myProcessEnv("PATH")
+myProcessEnv("PATH") = myProcessEnv("userprofile")+ "\\scoop\\apps\\racket\\current;" + myProcessEnv("PATH")
 
 //perl
 // myProcessEnv("PATH") = "f:\\perl\\bin;" + myProcessEnv("PATH")

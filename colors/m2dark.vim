@@ -61,7 +61,7 @@ hi Character	ctermfg=223	guifg=#ffd7af
 hi Comment	ctermfg=147	guifg=#594d53
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
-hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Green	gui=bold
+hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Cyan	gui=bold
 hi CursorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi ColorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi DiffAdd	ctermfg=227	ctermbg=22	guifg=#d7ff5f	guibg=#005f00

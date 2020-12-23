@@ -11,8 +11,9 @@ if exists('g:fvim_loaded')
 	nnoremap <A-CR> :FVimToggleFullScreen<CR>
 	FVimCursorSmoothMove v:true
 	FVimCursorSmoothBlink v:true
-else
+endif
 
+if has('nvim')
 	Guifont! JetBrains Mono:h14
 
 	nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
@@ -20,3 +21,4 @@ else
 	vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 endif
 
+colorscheme m2dark
