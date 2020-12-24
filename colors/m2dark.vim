@@ -68,7 +68,8 @@ hi DiffAdd	ctermfg=227	ctermbg=22	guifg=#d7ff5f	guibg=#005f00
 hi DiffDelete	ctermfg=227	ctermbg=88	guifg=#ffafff	guibg=#870000
 hi DiffChange	ctermfg=227	ctermbg=58	guifg=#ffafff	guibg=#5f5f00
 hi DiffText	ctermfg=227	ctermbg=88	guifg=#ffafff	guibg=#870000	cterm=none	gui=none
-hi Error	ctermfg=231	cterm=none	ctermbg=196	gui=none	guifg=White	guibg=Red
+hi Error	ctermfg=231	cterm=none	ctermbg=196	gui=none	guibg=DarkRed
+hi jsonCommentError guifg=DarkGoldenrod4 guibg=Grey3
 hi Directory	ctermfg=33	guifg=#0087ff
 hi Folded	ctermfg=86	ctermbg=240	guifg=#00ffff	guibg=#585858
 hi FoldColumn	ctermfg=86	ctermbg=240	guifg=#00ffff	guibg=#585858
@@ -110,7 +111,7 @@ hi Visual	ctermfg=248	guifg=#a8a8a8	ctermbg=237 	guibg=#3a3a3a
 hi VisualNOS	term=bold,underline		cterm=bold,underline		gui=bold,underline
 hi WarningMsg	ctermfg=196
 hi WildMenu	ctermfg=16	ctermbg=226	guifg=#000000	guibg=#ffff00
-hi ErrorMsg ctermfg=231 ctermbg=196 guifg=#ffffff guibg=#ff0000
+hi ErrorMsg ctermfg=231 ctermbg=196 guifg=#ffffff guibg=DarkRed
 
 " TODO: Implement:
 " CursorIM

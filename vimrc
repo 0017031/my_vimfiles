@@ -42,29 +42,24 @@ set wildmode=longest,list,full | set wildmenu                  " bash/readline a
 set cursorline |set cmdheight=2 |set nowrapscan                                
 set relativenumber | set number | set ignorecase | set smartcase | set tabstop=4 | set nowrap |set textwidth=120
 
-augroup JsonToJsonc
-	autocmd! FileType json set filetype=jsonc
-augroup END
-
 au BufNewFile, BufReadPost *.rkt,*.rktl,*.alt,*.scm set filetype=scheme "racket
 au BufNewFile, BufReadPost *.dom set filetype=st
 au FileType c,cpp,java set matchpairs+=<:>
 au Filetype vim         setlocal tabstop=2 sts=2 sw=2 formatoptions-=ro " Don't insert a " at the start of the new line.	
 au Filetype c,cpp,st    setlocal tabstop=4 sts=4 sw=4 formatoptions-=ro	
 au filetype lisp,scheme setlocal equalprg=scmindent.cmd
-"au FileType json syntax match Comment +\/\/.\+$+
 "alt-space to close vim (not available in neovide)
 if get(g:, 'neovide', v:false) != v:true
   nnoremap <M-Space> :simalt ~<CR> 
 endif
 "shift-insert to paste in edit mode
 inoremap <silent>  <C-v>  <C-R>*
-cnoremap <silent>  <C-v>  <C-R>*
+cnoremap <silent>  <C-v>  <C-R>*<C-l>
 
 " alt-F8 to format whole file
 nnoremap <M-F8> gg=G<C-O><C-O> 
 inoremap <M-F8> <ESC>gg=G<C-O><C-O> 
-au FileType json, jsonc nnoremap  <buffer> <M-F8>   :call CocAction('format')<CR>
+" au FileType json,jsonc nnoremap  <buffer> <M-F8>   :call CocAction('format')<CR>
 au FileType c,cpp,javascript,java,cs nnoremap  <buffer> <M-F8>   :call FormatFile()<CR>
 au FileType c,cpp,javascript,java,cs noremap   <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
 au FileType c,cpp,javascript,java,cs inoremap  <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
@@ -80,8 +75,8 @@ nnoremap <M-RIGHT> <C-I>
 nnoremap <F9> :w<CR>:so %<CR>
 inoremap <F9> <ESC>:w<CR>:so %<CR>
 " ctrl-tab for switching buffer/window
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-F4>  :bd<CR>
+nnoremap <C-Tab> :bn!<CR>
+nnoremap <C-F4>  :bw<CR>
 " ctrl-s to save file
 nnoremap <C-S> :w<CR>
 "ctrl-q to toggle comment current line,  see commentary.txt
@@ -93,16 +88,14 @@ nnoremap <C-J> gJ
 inoremap <C-l>l <C-k>l*
 
 let mapleader = ","
-nmap <leader>d <C-d>
-nmap <leader>f <C-f>
-nmap <leader>u <C-u>
-nmap <leader>b <C-b>
-" show all vim registers
-nmap <leader>, :reg<CR>
+" nmap <leader>j <C-f>jzz
+" nmap <leader>k <C-b>kzz
+" scroll down half screen
+nmap <M-j> <C-d>zz
+nmap <M-k> <C-b>kzz
 nmap <leader>re :execute "edit " . $MYVIMRC<CR>
-" ,m to maximize window
-nmap <leader>m :resize<CR> 
-" auto highlight words under cursor, when idle
+nmap <leader>e  :execute "edit " . $MYVIMRC<CR>
+" <leader>z to toggle -- auto highlight words under cursor, when idle
 nmap <leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 "----------------------------------------- copy current file/path/directory. for example: ",ef" to copy absolute path.
 " absolute path  (/something/src/foo.txt) 
@@ -120,7 +113,7 @@ nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '>
 	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
-nmap <leader>hh :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' 
+nmap <leader>h :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' 
 	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" 
 	  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" 
 	  \ . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
@@ -175,6 +168,7 @@ Plug '0017031/vim-system-copy'
 Plug 'vim-jp/syntax-vim-ex' 
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug '0017031/jsonc.vim'
 if has('nvim')
   " Plug 'neovim/nvim-lspconfig'
   " Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
@@ -250,6 +244,10 @@ if index(g:plugs_order,  'coc.nvim') >=0
 		\ coc#refresh()
   " <CR> to confirm completion
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+  " <leader>, <leader>. to navigate diagnostics
+  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+  nmap <silent> <leader>. <Plug>(coc-diagnostic-prev)
+  nmap <silent> <leader>, <Plug>(coc-diagnostic-next)
 endif
 
 " ----------------- " Help File speedups, <enter> to follow tag, shift-<enter> to go back

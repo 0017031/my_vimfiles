@@ -9,16 +9,17 @@ var arg0 = " -u " + myProcessEnv( "MYVIMRC" )
 var arg=""
 for (i=0; i<WScript.Arguments.length; i++)
 {
-    arg = arg + ' ' + 
-		// myFsObj.BuildPath(myFsObj.GetAbsolutePathName('.'), WScript.Arguments(i)) // ' "' + WScript.Arguments(i) + '"'
-		myFsObj.GetAbsolutePathName(WScript.Arguments(i))
+		arg = arg + ' ' + 
+				// myFsObj.BuildPath(myFsObj.GetAbsolutePathName('.'), WScript.Arguments(i)) // ' "' + WScript.Arguments(i) + '"'
+				myFsObj.GetAbsolutePathName(WScript.Arguments(i))
 }
 
 var TemporaryFolder = 2
 var linkfile = myFsObj.BuildPath(myFsObj.GetSpecialFolder(TemporaryFolder), "my_nVim222.lnk")
 var link = myShellObj.CreateShortcut(linkfile)
 link.TargetPath = myCommandStr
-link.Arguments = " -qwindowgeometry 1500x900+150+50  -- " + arg0 + arg
+// link.Arguments = " -qwindowgeometry 1500x900+150+50  -- " + arg0 + arg
+link.Arguments = " -- "+ arg0 + arg
 link.WorkingDirectory = runningDirBin
 link.IconLocation = myFsObj.BuildPath(runningDirBin, "nvim-qt.exe")
 link.Save()

@@ -17,15 +17,19 @@ my_env.update({
     'http_proxy': 'http://127.0.0.1:8123',
 
     'PATH': 'C:\\Windows\\System32\\;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\'
-})
+    })
 
-my_env['PATH'] = r"C:\Windows\System32\;C:\Windows\System32\WindowsPowerShell\v1.0"
-my_env['PATH'] = rf"F:\node.js\latest\node_modules\yarn\bin;{my_env.get('PATH')}"
-my_env['PATH'] = rf"F:\node.js\latest\;{my_env.get('PATH')}"
-my_env['PATH'] = rf"F:\git\cmd\;{my_env.get('PATH')}"
+my_env['PATH'] = 
+    r"C:\Windows\System32\;C:\Windows\System32\WindowsPowerShell\v1.0;"
+    r"F:\node.js\latest\node_modules\yarn\bin;F:\node.js\latest;"
+    r"F:\git\cmd\;"
+    f"{my_env.get('PATH')}"
 
 userprofile = Path(os.environ.get('USERPROFILE'))
-exe_path = r'f:\nvim\l\nvim-qt.exe'
-my_command = [exe_path, '-U', 'NONE']
+exe_path = r'f:\nvim\l\bin\nvim-qt.exe'
+# var arg0 = " -u " + myProcessEnv( "MYVIMRC" )
+# link.Arguments = " -qwindowgeometry 1500x900+150+50  -- " + arg0 + arg
+my_command = [exe_path,"-qwindowgeometry", "1500x900+150+50",  "--", "-u",  ]
 my_command.extend(sys.argv[1:])
-subprocess.run(my_command, env=my_env, cwd=r'c:\w\mygithub\python-scripts')
+print(my_command)
+subprocess.run(my_command, env=my_env )

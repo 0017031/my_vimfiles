@@ -14,7 +14,8 @@ if exists('g:fvim_loaded')
 endif
 
 if has('nvim')
-	Guifont! JetBrains Mono:h14
+	Guifont! JetBrains Mono:h12
+	set linespace=-1|set lines=43
 
 	nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 	inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
