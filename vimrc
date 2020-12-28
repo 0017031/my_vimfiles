@@ -81,11 +81,9 @@ nnoremap <C-J> gJ
 inoremap <C-l>l <C-k>l*
 
 let mapleader = ","
-" nmap <leader>j <C-f>jzz
-" nmap <leader>k <C-b>kzz
 " scroll down half screen
-nmap <M-j> <C-d>zz
-nmap <M-k> <C-b>kzz
+nmap <C-j> <C-d>zz
+nmap <C-k> <C-b>kzz
 nmap <leader>re :execute "edit " . $MYVIMRC<CR>
 nmap <leader>e  :execute "edit " . $MYVIMRC<CR>
 " <leader>z to toggle -- auto highlight words under cursor, when idle
