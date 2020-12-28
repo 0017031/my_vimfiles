@@ -1,5 +1,21 @@
 {
 		"http.proxy": "http://127.0.0.1:8123",
-		"https.proxy": "http://127.0.0.1:8123"
-}
+"https.proxy": "http://127.0.0.1:8123",
+	"diagnostic.errorSign": "?",
+	"diagnostic.warningSign": "?",
+	"diagnostic.infoSign": "?",
 
+	"languageserver": {
+		"racket": {
+			"command": "racket",
+			"args": [
+				"--lib",
+				"racket-langserver"
+			],
+			"filetypes": [
+				"scheme",
+				"racket"
+			]
+		}
+	}
+}
