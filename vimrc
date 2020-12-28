@@ -6,26 +6,19 @@ nnoremap ; :
 nnoremap ' "
 nnoremap " '
 
-" F9 to source current file
-if has('nvim')
-  nnoremap <F9> <Cmd>w<CR><Cmd>so % <CR>
-  inoremap <F9> <ESC><Cmd>w<CR><Cmd>so %<CR>
-else
-  nnoremap <F9> :w<CR>:so % <CR>
-  inoremap <F9> <ESC>:w<CR>:so %<CR>
-endif
-if has('nvim') 
-  if get(g:, 'neovide', v:false) == v:true "neovide
-	set guifont=Fira_Code_Retina:h12 | set wrap | let g:neovide_fullscreen=1
-  endif
-else  "plain vim
+"																" F9 to source current file
+nnoremap <F9> :w<CR>:so % <CR>
+inoremap <F9> <ESC>:w<CR>:so %<CR>
+set guifont=Fira_Code_Retina:h12 | set wrap 
+
+"plain vim, source defaults.vim
+if !has('nvim') 
   source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
-  "gvim
-  if has('gui_running') 
-	set lines=41 columns=164 | set guifont =Fira_Code_Retina:h13
-  else "vim-console
-	" set term=xterm-256color
-  endif 
+endif
+
+"gvim
+if has('gui_running') 
+  set lines=45 columns=164 
 endif
 
 set backup                                                     " keep a backup file (restore to previous version)
@@ -108,6 +101,8 @@ nmap <leader>ed :let @*=expand("%:p:h")<CR>
 nmap <leader>et :let @*=expand("%")<CR> 
 "mru, list recent files
 cnoreabbrev <expr> mr 'browse old!'
+" <leader>m to remive "^M" in dos format 
+nnoremap <leader>m :%s#\r\n#\r#g<CR>
 " Map F10 to display the syntax highlighting group of the current word
 nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 	  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -138,7 +133,6 @@ if has('gui_running')
   let no_buffers_menu = 1 
   set guioptions -=T "no tool-bar in gui
   " ----------------- make linespacing narrower 
-  set linespace=2
 else
   " colo default
   " highlight LineNr ctermfg=darkgray ctermbg=black
@@ -262,11 +256,7 @@ au filetype help set number
 
 
 " ----------------- " remap <Esc> in normal mode to also clear hlsearch highlighting
-if has('nvim')
-  nmap <Esc> <Esc><Cmd>nohlsearch<CR>
-else
-  nmap <Esc> <Esc>:nohlsearch<CR>
-endif
+nmap <Esc> <Esc>:nohlsearch<CR>
 
 " ----------------- " remap <ctrl-F4> to :bd (close buffer)
 nnoremap <C-F4> :bd<CR>
