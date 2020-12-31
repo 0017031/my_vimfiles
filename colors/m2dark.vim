@@ -58,7 +58,7 @@ endif
 
 hi Boolean	ctermfg=209	guifg=#ff875f
 hi Character	ctermfg=223	guifg=#ffd7af
-hi Comment	ctermfg=147	guifg=#594d53
+hi Comment	ctermfg=147	guifg=#9b9497
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
 hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Cyan	gui=bold
@@ -98,7 +98,7 @@ hi SpellLocal	ctermfg=28	ctermbg=none	cterm=underline	guisp=#00AA00	gui=undercur
 hi SpellRare	ctermfg=201	ctermbg=none	cterm=underline	guisp=#ff00ff	gui=undercurl
 hi SpellCap	ctermfg=33	ctermbg=none	cterm=underline	guisp=#0087ff	gui=undercurl
 hi Statement	ctermfg=226	guifg=CornflowerBlue	cterm=none	gui=none
-hi StatusLine	ctermfg=16	ctermbg=244	guifg=white	guibg=#4e4e4e	gui=none	cterm=none
+hi StatusLine	ctermfg=16	ctermbg=244	guifg=white	guibg=Red	gui=italic	cterm=none
 hi StatusLineNC	ctermfg=16	ctermbg=240	guifg=black	guibg=#4e4e4e	gui=none	cterm=none
 hi VertSplit	ctermfg=16	ctermbg=239	guifg=black	guibg=gray30	gui=none	cterm=none
 hi TabLineSel	ctermfg=16	ctermbg=244	cterm=none	guifg=black	guibg=#808080	gui=none
@@ -153,7 +153,7 @@ hi link	wdiffNew	diffAdded
 
 " Vim help
 hi helpHyperTextEntry	ctermfg=39	guifg=#00afff
-
+hi helpCommand guifg=DarkRed
 " Vimscript
 hi vimCommentTitle	ctermfg=135	guifg=#af5fff	gui=italic
 hi vimCommentString	ctermfg=109	guifg=#87afaf	gui=italic

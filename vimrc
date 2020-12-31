@@ -1,5 +1,5 @@
 
-set formatoptions-=ro                                          " Don't insert a " at the start of the new line.
+
 " no need to press SHIFT
 nnoremap ; :
 "swap in normal mode
@@ -9,10 +9,10 @@ nnoremap " '
 "																" F9 to source current file
 nnoremap <F9> :w<CR>:so % <CR>
 inoremap <F9> <ESC>:w<CR>:so %<CR>
-set guifont=Fira_Code_Retina:h12 | set wrap 
 
 "plain vim, source defaults.vim
 if !has('nvim') 
+  set guifont=Fira_Code_Retina:h12 | set wrap 
   source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
 endif
 
@@ -37,14 +37,18 @@ set relativenumber | set number | set ignorecase | set smartcase | set tabstop=4
 
 au BufNewFile, BufReadPost *.rkt,*.rktl,*.alt,*.scm set filetype=scheme "racket
 au BufNewFile, BufReadPost *.dom set filetype=st
+au BufNewFile, BufReadPost * set formatoptions-=ro
 au FileType c,cpp,java set matchpairs+=<:>
-au Filetype vim         setlocal tabstop=2 sts=2 sw=2 formatoptions-=ro " Don't insert a " at the start of the new line.	
-au Filetype c,cpp,st    setlocal tabstop=4 sts=4 sw=4 formatoptions-=ro	
+au Filetype vim,gitconfig      setlocal tabstop=2 sts=2 sw=2 "formatoptions-=ro " Don't insert a " at the start of the new line.	
+au Filetype c,cpp,st,haskell   setlocal tabstop=4 sts=4 sw=4 "formatoptions-=ro	
 au filetype lisp,scheme setlocal equalprg=scmindent.cmd
 "alt-space to close vim (not available in neovide)
 if get(g:, 'neovide', v:false) != v:true
-  nnoremap <M-Space> :simalt ~<CR> 
+
+  " nnoremap <M-Space> :simalt ~<CR> 
+  " simalt ~X
 endif
+
 "shift-insert to paste in edit mode
 inoremap <silent>  <C-v>  <C-R>*
 cnoremap <silent>  <C-v>  <C-R>*<C-l>
@@ -52,7 +56,7 @@ cnoremap <silent>  <C-v>  <C-R>*<C-l>
 " alt-F8 to format whole file
 nnoremap <M-F8> gg=G<C-O><C-O> 
 inoremap <M-F8> <ESC>gg=G<C-O><C-O> 
-" au FileType json,jsonc nnoremap  <buffer> <M-F8>   :call CocAction('format')<CR>
+au FileType json,jsonc,haskell nnoremap  <buffer> <M-F8>   :call CocAction('format')<CR>
 au FileType c,cpp,javascript,java,cs nnoremap  <buffer> <M-F8>   :call FormatFile()<CR>
 au FileType c,cpp,javascript,java,cs noremap   <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
 au FileType c,cpp,javascript,java,cs inoremap  <buffer> <M-F12>  :py3f f:/gnuWin32/bin/clang-format.py3<CR>
@@ -75,7 +79,7 @@ nnoremap <C-S> :w<CR>
 "ctrl-q to toggle comment current line,  see commentary.txt
 nnoremap <C-Q> :Commentary<CR>
 " ctrl-j join lines withouth space, shift-j join lines with space inserted
-nnoremap <C-J> gJ
+" nnoremap <C-J> gJ
 
 " input the lambda(λ) character 
 inoremap <C-l>l <C-k>l*
@@ -143,6 +147,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rsi'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
+Plug 'inkarkat/vim-ReplaceWithRegister'
 
 " ----------------------- "s-expression for lisp/scheme
 " https://github.com/junegunn/vim-plug/issues/536#issuecomment-254049916 (open for certarin file extension )
@@ -165,6 +170,7 @@ if has('nvim')
   " Plug 'neovim/nvim-lspconfig'
   " Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
   " Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+else
 endif
 " Plug 'rhysd/wandbox-vim'
 " Plug 'PProvost/vim-ps1'
@@ -215,13 +221,8 @@ if index(g:plugs_order, 'vim-system-copy')>=0
   let g:system_copy#paste_command='win32yank -o'
   nmap cc <Plug>SystemCopy
   nmap cyy <Plug>SystemCopyLine
-  nmap c8 <Plug>SystemPaste
+  nmap cp <Plug>SystemPaste
   nmap cpp <Plug>SystemPasteLine
-endif
-
-if(index(g:plugs_order, 'vim-slime')) >=0
-  let g:slime_target = "neovim"
-  let g:slime_paste_file = tempname()
 endif
 
 if index(g:plugs_order,  'coc.nvim') >=0
@@ -292,4 +293,4 @@ set guicursor=n-v:block,i-c-ci-ve:ver11,r-cr:hor20,o:hor50,a:blinkwait100-blinko
 " set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 " set renderoptions=type:directx,contrast:0.5,geom:1,renmode:5                           "looks good on win10
 colorscheme m2dark
-
+set formatoptions-=ro

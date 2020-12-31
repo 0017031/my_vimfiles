@@ -6,10 +6,10 @@ from pathlib import Path
 my_env = os.environ.copy()
 my_env.pop('HOMESHARE',None)
 my_env.update({
-    'HOME': os.environ.get('USERPROFILE'),
+    'HOME': my_env.get('USERPROFILE'),
     'HOMEDRIVE': 'C:',
     'HOMEPATH': my_env.get('USERPROFILE'),
-
+    
     'LANG': 'en_US.UTF-8',
     'LC_COLLATE': 'C',
 
@@ -18,7 +18,6 @@ my_env.update({
 
     'PATH': r"C:\\Windows\\System32\\;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;"
             r"C:\Windows\System32\;C:\Windows\System32\WindowsPowerShell\v1.0;"
-            r"F:\gnuwin32\bin;"
             r"F:\node.js\l\node_modules\yarn\bin;F:\node.js\l;"
             r"F:\racket\l;"
             r"F:\haskell\stack\l;F:\haskell\local_bin;F:\haskell\ghc-8.8.4\bin;f:\hls;"
@@ -26,7 +25,12 @@ my_env.update({
 })
 
 
-my_command = [r'f:\gvim\l\gvim.exe']
+my_command = [r'f:\gvim\l\vim.exe']
+
+# my_env['SHELL'] = r"C:\Users\baic\Downloads\apps\git\bin\sh.exe"
+# my_env['SHELL'] = my_env.get('COMSPEC')
+# my_command = [r'C:\Users\baic\Downloads\apps\git\usr\bin\vim.exe']
+
 my_command.extend(sys.argv[1:])
 
 # print(my_command)
