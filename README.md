@@ -31,3 +31,10 @@ link| source|for
 command! -narg=+ VO :call ViewOutput(<q-args>) "use a !bang, to 'redefine' the command
 command! -narg=+ OO :call ViewOutput(<q-args>)
 ```
+
+## guifont
+
+  settings |for
+---| ---
+~/vimfiles/vimrc | gvim, neovide
+~/vimfiles/ginit.vim | nvim-qt

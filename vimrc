@@ -1,24 +1,26 @@
-
-
-" no need to press SHIFT
 nnoremap ; :
-"swap in normal mode
 nnoremap ' "
 nnoremap " '
-
-"																" F9 to source current file
 nnoremap <F9> :w<CR>:so % <CR>
 inoremap <F9> <ESC>:w<CR>:so %<CR>
 
+if get(g:, 'neovide', v:false) 
+  " let g:neovide_fullscreen=v:true
+  " set guifont=Fira\ Code\ Retina:h16
+  set guifont=Hack:h16
+endif
+
 "plain vim, source defaults.vim
 if !has('nvim') 
-  set guifont=Fira_Code_Retina:h12 | set wrap 
   source $VIMRUNTIME/defaults.vim | let g:skip_defaults_vim = 1 " Do not source defaults.vim again (after loading this system vimrc)
+  set guifont=Fira\ Code\ Retina:h12 
+  " set guifont=Dejavu_sans_mono:h13 
 endif
 
 "gvim
 if has('gui_running') 
-  set lines=45 columns=164 
+  set wrap |set lines=45 columns=164 |simalt ~X
+  nnoremap <M-Space> :simalt ~<CR> 
 endif
 
 set backup                                                     " keep a backup file (restore to previous version)
@@ -42,16 +44,6 @@ au FileType c,cpp,java set matchpairs+=<:>
 au Filetype vim,gitconfig      setlocal tabstop=2 sts=2 sw=2 "formatoptions-=ro " Don't insert a " at the start of the new line.	
 au Filetype c,cpp,st,haskell   setlocal tabstop=4 sts=4 sw=4 "formatoptions-=ro	
 au filetype lisp,scheme setlocal equalprg=scmindent.cmd
-"alt-space to close vim (not available in neovide)
-if get(g:, 'neovide', v:false) != v:true
-
-  " nnoremap <M-Space> :simalt ~<CR> 
-  " simalt ~X
-endif
-
-"shift-insert to paste in edit mode
-inoremap <silent>  <C-v>  <C-R>*
-cnoremap <silent>  <C-v>  <C-R>*<C-l>
 
 " alt-F8 to format whole file
 nnoremap <M-F8> gg=G<C-O><C-O> 
@@ -149,6 +141,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'inkarkat/vim-ReplaceWithRegister'
 
+Plug 'christoomey/vim-run-interactive'
 " ----------------------- "s-expression for lisp/scheme
 " https://github.com/junegunn/vim-plug/issues/536#issuecomment-254049916 (open for certarin file extension )
 " Plug 'guns/vim-sexp',  { 'for': 'scheme' } 

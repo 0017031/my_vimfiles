@@ -98,7 +98,7 @@ hi SpellLocal	ctermfg=28	ctermbg=none	cterm=underline	guisp=#00AA00	gui=undercur
 hi SpellRare	ctermfg=201	ctermbg=none	cterm=underline	guisp=#ff00ff	gui=undercurl
 hi SpellCap	ctermfg=33	ctermbg=none	cterm=underline	guisp=#0087ff	gui=undercurl
 hi Statement	ctermfg=226	guifg=CornflowerBlue	cterm=none	gui=none
-hi StatusLine	ctermfg=16	ctermbg=244	guifg=white	guibg=Red	gui=italic	cterm=none
+hi StatusLine	ctermfg=16	ctermbg=244	guifg=white	guibg=Grey33	gui=italic	cterm=none
 hi StatusLineNC	ctermfg=16	ctermbg=240	guifg=black	guibg=#4e4e4e	gui=none	cterm=none
 hi VertSplit	ctermfg=16	ctermbg=239	guifg=black	guibg=gray30	gui=none	cterm=none
 hi TabLineSel	ctermfg=16	ctermbg=244	cterm=none	guifg=black	guibg=#808080	gui=none
