@@ -80,6 +80,7 @@ let mapleader = ","
 " scroll down half screen
 nmap <C-j> <C-d>zz
 nmap <C-k> <C-b>kzz
+nmap <leader>ww :set wrap!<CR>
 nmap <leader>re :execute "edit " . $MYVIMRC<CR>
 nmap <leader>e  :execute "edit " . $MYVIMRC<CR>
 " <leader>z to toggle -- auto highlight words under cursor, when idle
