@@ -207,7 +207,7 @@ function customize() {
             lispKeywords[kw] = lw[kw];
           }
         } else {
-          process.stderr.write('~/vimfiles/lispwords.json missing or ill-formed\n');
+          //process.stderr.write('~/vimfiles/lispwords.json missing or ill-formed\n');
         }
         tbd.emit('customizationDone');
       });
