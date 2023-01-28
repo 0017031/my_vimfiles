@@ -21,10 +21,11 @@ my_env.update({
             r"F:\gnuwin32\bin;"
             r"F:\node.js\l\node_modules\yarn\bin;F:\node.js\l;"
             r"F:\racket\l;"
-            r"F:\haskell\stack\l;F:\haskell\local_bin;F:\haskell\ghc-8.8.4\bin;f:\hls;"
-            r"F:\git\cmd;" ,
+            # r"F:\haskell\stack\l;F:\haskell\local_bin;F:\haskell\ghc-8.8.4\bin;f:\hls;"
+            r"F:\git\l\cmd;" ,
 })
 
+print (my_env.get('PATH'))
 
 my_command = [r'f:\gvim\l\gvim.exe']
 my_command.extend(sys.argv[1:])
@@ -32,3 +33,5 @@ my_command.extend(sys.argv[1:])
 # print(my_command)
 
 subprocess.run(my_command, env=my_env)
+
+# subprocess.run("cmd /k", env=my_env, shell=True)
