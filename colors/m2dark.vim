@@ -2,6 +2,8 @@
 "
 " Name:        m2dark.vim
 " Based on 'southernlights' color schemes, of which the starting point was 'torte'
+"
+"helpHyperTextJump
 
 
 set background=dark
@@ -58,7 +60,7 @@ endif
 
 hi Boolean	ctermfg=209	guifg=#ff875f
 hi Character	ctermfg=223	guifg=#ffd7af
-hi Comment	ctermfg=147	guifg=#9b9497
+hi Comment	ctermfg=147	guifg=#6c3882
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
 hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Cyan	gui=bold
@@ -69,6 +71,7 @@ hi DiffDelete	ctermfg=227	ctermbg=88	guifg=#ffafff	guibg=#870000
 hi DiffChange	ctermfg=227	ctermbg=58	guifg=#ffafff	guibg=#5f5f00
 hi DiffText	ctermfg=227	ctermbg=88	guifg=#ffafff	guibg=#870000	cterm=none	gui=none
 hi Error	ctermfg=231	cterm=none	ctermbg=196	gui=none	guibg=DarkRed
+hi jsoncKeywordMatch guifg=#ffb6c1 
 hi jsonCommentError guifg=DarkGoldenrod4 guibg=Grey3
 hi Directory	ctermfg=33	guifg=#0087ff
 hi Folded	ctermfg=86	ctermbg=240	guifg=#00ffff	guibg=#585858
@@ -152,11 +155,13 @@ hi link	wdiffOld	diffRemoved
 hi link	wdiffNew	diffAdded
 
 " Vim help
-hi helpHyperTextEntry	ctermfg=39	guifg=#00afff
-hi helpCommand guifg=DarkRed
+hi helpHyperTextEntry		guifg=#00afff
+hi helpCommand guifg=#ff3569
+hi helpExample guifg=#d09cd9
 " Vimscript
 hi vimCommentTitle	ctermfg=135	guifg=#af5fff	gui=italic
 hi vimCommentString	ctermfg=109	guifg=#87afaf	gui=italic
+hi vimHiGroup ctermfg=lightblue
 
 " R
 hi rOKeyword	ctermfg=135	guifg=#af5fff	gui=italic

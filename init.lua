@@ -1,2 +1,2 @@
 require('settings')
-require('try1_plugins')
+require('plugins_lazy')
