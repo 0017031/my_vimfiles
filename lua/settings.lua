@@ -117,16 +117,16 @@ for k, v in pairs(value_options) do
 end
 
 -- HiLight yank
-local yankGrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank{timeout=800} end, group = yankGrp, })
+local My_yank_hilight_augrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank{timeout=800} end, group = My_yank_hilight_augrp, })
 
 -- myfiles autocmd
-local myFileAu = vim.api.nvim_create_augroup("myFileAu", { clear = true })
-vim.api.nvim_create_autocmd("Filetype", {pattern={'lua', 'vim', 'gitconfig'},command='setlocal ts=2 sts=2 sw=2', group = "myFileAu", })
+local My_file_augrp = vim.api.nvim_create_augroup("myFileAu", { clear = true })
+vim.api.nvim_create_autocmd("Filetype", {pattern={'lua', 'vim', 'gitconfig'},command='setlocal ts=2 sts=2 sw=2', group = My_file_augrp, })
 
 -- override hlsearch background color in the color-theme
-local hlsearchGrp = vim.api.nvim_create_augroup ("My_Search_HiLight", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", { command='highlight clear Search | highlight Search guibg=#034400', group = "My_Search_HiLight", })
+local My_hlsearch_bg_augrp = vim.api.nvim_create_augroup ("My_Search_HiLight", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", { command='highlight clear Search | highlight Search guibg=#034400', group = My_hlsearch_bg_augrp, })
 vim.cmd.colorscheme(my_color_scheme)
 
 
