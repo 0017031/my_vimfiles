@@ -58,6 +58,8 @@ vim.cmd.cnoreabbrev{ "<expr>", "mr", "'browse old!'", }
 vim.cmd([[
 autocmd VimLeave * set guicursor= | call chansend(v:stderr, "\x1b[ q")
 ]])
+--
+--
 -- -- Map F10 to display the syntax highlighting group of the current word
 vim.cmd[[
 nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -91,6 +93,7 @@ local value_options = {
 	cmdheight = 2,
 	tabstop = 4, textwidth = 120,
 	viminfo="'10,<30,s10,h,rV:,rU:,rB:", -- "limit oldfile history to 30
+	guicursor='',
 }
 
 local TRUE_options = {
