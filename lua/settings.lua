@@ -53,8 +53,11 @@ remap('n', '<leader>et', ':let @*=expand("%")<CR> ')
 remap('n', '<C-Q>', '<Plug>(comment_toggle_linewise_current)')
 
 -- mru, list recent files
-vim.cmd"cnoreabbrev <expr> mr 'browse old!'"
---
+-- vim.cmd"cnoreabbrev <expr> mr 'browse old!'"
+vim.cmd.cnoreabbrev{ "<expr>", "mr", "'browse old!'", }
+vim.cmd([[
+autocmd VimLeave * set guicursor= | call chansend(v:stderr, "\x1b[ q")
+]])
 -- -- Map F10 to display the syntax highlighting group of the current word
 vim.cmd[[
 nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -117,16 +120,18 @@ for k, v in pairs(value_options) do
 end
 
 -- HiLight yank
-local My_yank_hilight_augrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local My_yank_hilight_augrp = vim.api.nvim_create_augroup("My_yank_hilight_augrp", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", { callback = function() vim.highlight.on_yank{timeout=800} end, group = My_yank_hilight_augrp, })
 
 -- myfiles autocmd
-local My_file_augrp = vim.api.nvim_create_augroup("myFileAu", { clear = true })
+local My_file_augrp = vim.api.nvim_create_augroup("My_file_augrp", { clear = true })
 vim.api.nvim_create_autocmd("Filetype", {pattern={'lua', 'vim', 'gitconfig'},command='setlocal ts=2 sts=2 sw=2', group = My_file_augrp, })
 
 -- override hlsearch background color in the color-theme
-local My_hlsearch_bg_augrp = vim.api.nvim_create_augroup ("My_Search_HiLight", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", { command='highlight clear Search | highlight Search guibg=#034400', group = My_hlsearch_bg_augrp, })
+local My_hlsearch_bg_augrp = vim.api.nvim_create_augroup ("My_hlsearch_bg_augrp", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", { command='highlight clear Search | highlight Search guibg=#d16002', group = My_hlsearch_bg_augrp, })
 vim.cmd.colorscheme(my_color_scheme)
 
-
+-- override hlsearch background color in the color-theme
+-- local My_recover_cursor_grp= vim.api.nvim_create_augroup ("My_recover_cursor_grp", { clear = true })
+-- vim.api.nvim_create_autocmd("VimLeave", { command='set guicursor= |call chansend(v:stderr, "\x1b[ q"', group = My_recover_cursor_grp, })
