@@ -1,6 +1,6 @@
 //vim: filetype=jsonc
 {
-		"http.proxy": "http://127.0.0.1:8123",
+		// "http.proxy": "http://127.0.0.1:8123",
 
 		"diagnostic.errorSign": "??",
 		"diagnostic.warningSign": "--",
@@ -27,5 +27,6 @@
 						"filetypes": ["haskell", "lhaskell"]
 				}
 
-		}
+    },
+    "snippets.ultisnips.pythonPrompt": false
 }
