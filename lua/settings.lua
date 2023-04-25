@@ -16,7 +16,7 @@ remap('i', '<F9>', '<ESC>:w<CR>:s %<CR>zz')
 -- F9 to source current file
 remap('n', '<F9>', ':w<CR>:so %<CR>')
 -- Alt-f8 to reformat file
-remap('n', '<M-F8>', 'gg=G<C-O>zz' )
+remap('n', '<leader>f', 'gg=G<C-O>zz')
 
 -- alt-left/right to navigate
 remap('n', '<M-Left>', '<C-O>')
@@ -92,6 +92,8 @@ local value_options = {
 	wildmenu = true, wildmode = 'longest,list,full',
 	cmdheight = 2,
 	tabstop = 4, textwidth = 120,
+	mouse = '',
+	ts = 2, sw=2, sts=2,
 	viminfo="'10,<30,s10,h,rV:,rU:,rB:", -- "limit oldfile history to 30
 	guicursor='',
 }
@@ -135,6 +137,3 @@ local My_hlsearch_bg_augrp = vim.api.nvim_create_augroup ("My_hlsearch_bg_augrp"
 vim.api.nvim_create_autocmd("ColorScheme", { command='highlight clear Search | highlight Search guibg=#d16002', group = My_hlsearch_bg_augrp, })
 vim.cmd.colorscheme(my_color_scheme)
 
--- override hlsearch background color in the color-theme
--- local My_recover_cursor_grp= vim.api.nvim_create_augroup ("My_recover_cursor_grp", { clear = true })
--- vim.api.nvim_create_autocmd("VimLeave", { command='set guicursor= |call chansend(v:stderr, "\x1b[ q"', group = My_recover_cursor_grp, })
