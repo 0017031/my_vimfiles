@@ -1,9 +1,9 @@
 //vim: filetype=jsonc
 {
-		//"http.proxy": "http://127.0.0.1:8123",
-		//"npm.binPath" : "pnpm",
-		"diagnostic.errorSign": "??",
-		"diagnostic.warningSign": "--",
+	sdfa	//"http.proxy": "http://127.0.0.1:8123",
+		//		"npm.binPath" : "pnpm",
+		"diagnostic.errorSign": "!",
+		"diagnostic.warningSign": "-",
 		"diagnostic.infoSign": "*",
 
 		"languageserver": {

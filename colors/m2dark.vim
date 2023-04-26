@@ -64,8 +64,6 @@ hi Comment	ctermfg=147	guifg=#6c3882
 "hi Comment	ctermfg=147	guifg=#7c5882
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
-" hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Cyan	gui=bold
-hi Cursor  guibg=#a42277
 hi CursorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi ColorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi DiffAdd	ctermfg=227	ctermbg=22	guifg=#d7ff5f	guibg=#005f00
@@ -183,7 +181,15 @@ hi CSVColumnEven	ctermfg=39	guifg=#00afff
 hi Normal	ctermfg=253	ctermbg=16	guifg=#dadada	guibg=Black
 hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=#585858
-augroup t1
+hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=#0070ff	gui=bold
+" hi Cursor  guibg=#a42277
+
+" Example: >
+" 	:augroup uncompress
+" 	:  au!
+" 	:  au BufEnter *.gz	%!gunzip
+" 	:augroup END
+augroup Insert_and_Cmd_EnterLeave
 	autocmd!
 	autocmd InsertEnter * hi CursorLine	ctermbg=235	cterm=none	guibg=DarkBlue	gui=none
 	autocmd InsertLeave * hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none

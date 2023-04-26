@@ -53,13 +53,9 @@ remap('n', '<leader>et', ':let @*=expand("%")<CR> ')
 remap('n', '<C-Q>', '<Plug>(comment_toggle_linewise_current)')
 
 -- mru, list recent files
--- vim.cmd"cnoreabbrev <expr> mr 'browse old!'"
-vim.cmd.cnoreabbrev{ "<expr>", "mr", "'browse old!'", }
-vim.cmd([[
-autocmd VimLeave * set guicursor= | call chansend(v:stderr, "\x1b[ q")
-]])
---
---
+vim.cmd"cnoreabbrev <expr> mr 'browse old!'"
+-- vim.cmd.cnoreabbrev{ "<expr>", "mr", "'browse old!'", }
+
 -- -- Map F10 to display the syntax highlighting group of the current word
 vim.cmd[[
 nmap <F10> :echom "hi<"     . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -87,15 +83,16 @@ aug end
 ]]
 
 local value_options = {
+	-- mouse = '',
 	modeline = false, modelines = 0, -- Avoid modeline vulnerability
 	helplang = 'en', langmenu = 'en_US.UTF-8', encoding = 'UTF-8',
 	wildmenu = true, wildmode = 'longest,list,full',
 	cmdheight = 2,
 	tabstop = 4, textwidth = 120,
-	mouse = '',
 	ts = 2, sw=2, sts=2,
 	viminfo="'10,<30,s10,h,rV:,rU:,rB:", -- "limit oldfile history to 30
-	guicursor='',
+	guicursor='n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175',
+
 }
 
 local TRUE_options = {
@@ -137,3 +134,6 @@ local My_hlsearch_bg_augrp = vim.api.nvim_create_augroup ("My_hlsearch_bg_augrp"
 vim.api.nvim_create_autocmd("ColorScheme", { command='highlight clear Search | highlight Search guibg=#d16002', group = My_hlsearch_bg_augrp, })
 vim.cmd.colorscheme(my_color_scheme)
 
+-- Restore cursor shape after exiting nvim
+local My_restore_cursor_augrp = vim.api.nvim_create_augroup ("My_restore_cursor_augrp", { clear = true })
+vim.api.nvim_create_autocmd("VimLeave", { command='set guicursor= | call chansend(v:stderr, "\x1b[ q")', group = My_restore_cursor_augrp, })
