@@ -47,3 +47,8 @@ command! -narg=+ OO :call ViewOutput(<q-args>)
     export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
     export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
     export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+    
+# lemonate
+    start /b lemonade.exe server -allow 127.0.0.1 2>nul 1>nul && c:\Windows\System32\OpenSSH\ssh.exe  -R 2489:127.0.0.1:2489 user@remote
+
+
