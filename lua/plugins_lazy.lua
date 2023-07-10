@@ -16,7 +16,9 @@ require("lazy").setup({
 
   -- replace 'tpope/vim-commentary',
   { 'numToStr/Comment.nvim',           config = function() require('Comment').setup() end },
+
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "nvim-treesitter/playground" },
 
   -- 'tpope/vim-fugitive', -- git for vim
   'neovim/nvim-lspconfig',
