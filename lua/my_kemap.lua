@@ -5,9 +5,8 @@ vim.g.mapleader = ','
 local remap = vim.keymap.set
 
 -- switch several keys
-remap('n', ';', ':')
-remap('n', '\'', '"')
-remap('n', '"', '\'')
+remap('n', ';', ':') ; remap('n', ':', ';')    -- swap ;            and :            charactor
+remap('n', '\'', '"'); remap('n', '"', '\'') -- swap single-quote and double-quote charactor
 remap('n', 'q', '<C-L>')
 -- vim.cmd('inoremap <F9> <ESC>:w<CR>:s %<CR>zz')
 remap('i', '<F9>', '<ESC>:w<CR>:s %<CR>zz')
@@ -85,5 +84,12 @@ aug end
 
 
 -- mru, list recent files
--- vim.cmd"cnoreabbrev <expr> mr 'browse old!'"
-vim.cmd.cnoreabbrev { "<expr>", "mr", "'browse old!'", }
+-- remap('c', 'mr', 'browse old!<CR>' )
+-- remap('n', '<leader>mr', ':browse old!<CR>' )
+remap('c', 'mr', 'Alpha<CR>' )
+remap('n', '<leader>m', ':Alpha<CR>' )
+
+
+
+
+
