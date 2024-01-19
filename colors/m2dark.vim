@@ -64,6 +64,8 @@ hi Comment	ctermfg=147	guifg=#6c3882
 "hi Comment	ctermfg=147	guifg=#7c5882
 hi Constant	ctermfg=219	guifg=#ffafff
 hi Conceal	ctermfg=221	ctermbg=16	guifg=#ffd75f	guibg=black
+" hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=Cyan	gui=bold
+hi Cursor  guibg=#a42277
 hi CursorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi ColorColumn	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi DiffAdd	ctermfg=227	ctermbg=22	guifg=#d7ff5f	guibg=#005f00
@@ -108,7 +110,7 @@ hi TabLineSel	ctermfg=16	ctermbg=244	cterm=none	guifg=black	guibg=#808080	gui=no
 hi TabLine	ctermfg=16	ctermbg=240	cterm=none	guifg=black	guibg=#585858	gui=none
 hi TabLineFill	ctermfg=16	ctermbg=235	cterm=none	guifg=black	guibg=#262626	gui=none
 hi String	ctermfg=229	guifg=#ffffaf
-hi Title	cterm=bold	ctermfg=201	gui=bold	guifg=Magenta
+" hi Title	cterm=bold	ctermfg=201	gui=bold	guifg=Magenta
 hi Type		ctermfg=77	guifg=#5fd75f	gui=none
 hi Visual	ctermfg=248	guifg=#a8a8a8	ctermbg=237 	guibg=#3a3a3a
 hi VisualNOS	term=bold,underline		cterm=bold,underline		gui=bold,underline
@@ -181,17 +183,9 @@ hi CSVColumnEven	ctermfg=39	guifg=#00afff
 hi Normal	ctermfg=253	ctermbg=16	guifg=#dadada	guibg=Black
 hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
 hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=#585858
-hi Cursor	ctermfg=16	ctermbg=28	cterm=bold	guifg=Black	guibg=#0070ff	gui=bold
-" hi Cursor  guibg=#a42277
-
-" Example: >
-" 	:augroup uncompress
-" 	:  au!
-" 	:  au BufEnter *.gz	%!gunzip
-" 	:augroup END
-augroup Insert_and_Cmd_EnterLeave
+augroup My_cursorline_hilight_augrp
 	autocmd!
-	autocmd InsertEnter * hi CursorLine	ctermbg=235	cterm=none	guibg=DarkBlue	gui=none
+	autocmd InsertEnter * hi CursorLine	ctermbg=235	cterm=none	guibg=DarkRed	gui=none
 	autocmd InsertLeave * hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
 
 	autocmd CmdLineLeave * hi CursorLine	ctermbg=235	cterm=none	guibg=#262626	gui=none
@@ -201,3 +195,8 @@ augroup Insert_and_Cmd_EnterLeave
 	autocmd CmdLineEnter * hi LineNr	ctermfg=16	ctermbg=240	guifg=Black	guibg=Grey7
 	autocmd CmdLineEnter * redraw
 augroup end
+
+hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen guifg=LightGreen guibg=DarkGreen
+hi TabLine ctermfg=Blue ctermbg=Yellow guifg=Blue 
+hi TabLineSel ctermfg=Red ctermbg=Yellow guifg=Yellow guibg=Red
+" hi Title ctermfg=LightBlue ctermbg=Magenta guifg=lightblue guibg=yellow
